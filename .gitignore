@@ -1,0 +1,46 @@
+# Secrets
+secrets.yaml
+
+# Database
+home-assistant_v2.db
+home-assistant_v2.db-shm
+home-assistant_v2.db-wal
+*.db
+
+# Log files
+home-assistant.log*
+
+
+# Temporary files
+*.pyc
+*.swp
+__pycache__/
+.tmp
+
+# Backup files
+.backup/
+.backups/
+*.tar
+
+# Custom components compiled cache
+custom_components/
+www/
+
+# Files for cloud setups
+.cloud/
+
+# Personalization
+#customize.yaml
+
+# Configuration checks
+.ha_check
+
+# Media files
+media/
+
+# Image cache
+images/
+
+.storage/
+
+blueprints/
