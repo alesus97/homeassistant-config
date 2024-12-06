@@ -1,0 +1,11 @@
+luci_cucina:
+  name: Luci Cucina
+  entities:
+    - light.luce_cucina_luce_cucina_1
+    - light.luce_cucina_luce_cucina_2
+
+luci_soggiorno:
+  name: Luci Cucina
+  entities:
+    - light.lucesoggiorno1
+    - light.lucesoggiorno2

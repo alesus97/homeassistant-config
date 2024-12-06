@@ -1,0 +1,148 @@
+####################################################
+#                                                  #
+#                Default Config                    #
+#                                                  #
+####################################################
+
+homeassistant:
+  name: Casa
+  latitude: !secret homeassistant_latitude
+  longitude: !secret homeassistant_longitude
+  unit_system: metric
+  time_zone: Europe/Rome
+  country: IT
+  external_url: !secret external_url
+  internal_url: !secret internal_url
+  customize: !include customize.yaml
+  allowlist_external_dirs: #Serve per far vedere il db dal sensore della dimensione
+    - /config
+  
+
+####################################################
+#                                                  #
+#                     CLOUD                        #
+#                                                  #
+####################################################
+
+#cloud:
+#  alexa:
+#    filter:
+#      include_entities:
+#        - climate.riscaldamento
+#        - cover.tapparella_camera_alessio
+#        - sensor.temperatura_camera_alessio
+#        - sensor.temperatura_corridoio
+#        - sensor.temperatura_esterna_strada
+#        - switch.accensione_alessio_pc_fisso
+
+####################################################
+#                                                  #
+#                     HTTP                         #
+#                                                  #
+####################################################
+
+http:
+  #ssl_certificate: /ssl/fullchain.pem
+  #ssl_key: /ssl/privkey.pem
+  ip_ban_enabled: true
+  login_attempts_threshold: 3
+
+  #server_port: 34000
+
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+
+####################################################
+#                                                  #
+#                     LOGGER                       #
+#                                                  #
+####################################################
+
+logger:
+  default: critical
+  logs:
+    # log level for HA core
+    homeassistant.core: fatal
+    
+
+####################################################
+#                                                  #
+#                     RECORDER                     #
+#                                                  #
+####################################################
+
+
+recorder:
+  commit_interval: 300  #seconds
+  purge_keep_days: 7
+  include:
+    domains:
+      - sensor
+      - lights
+      - temperature
+
+
+
+
+####################################################
+#                                                  #
+#                     MQTT                         #
+#                                                  #
+####################################################
+
+#mqtt:
+#    broker: core-mosquitto
+#    username: !secret mqtt_username
+#    password: !secret mqtt_password
+
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+#light: !include lights.yaml
+sensor: !include sensors.yaml
+switch: !include switches.yaml
+
+history: !include history.yaml
+shell_command: !include shellCommands.yaml
+
+mobile_app:
+#discovery:
+ios:
+shopping_list:
+wake_on_lan:
+#smartir:
+
+####################################################
+#                                                  #
+#                     CLIMATE                      #
+#                                                  #
+####################################################
+
+climate:
+  - platform: generic_thermostat
+    name: Riscaldamento
+    heater: switch.riscaldamento
+    target_sensor: sensor.corrdoio_temperatura
+    min_temp: 15
+    max_temp: 30
+    ac_mode: False
+    cold_tolerance: 0.5
+    hot_tolerance: 0
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    initial_hvac_mode: "off"
+    away_temp: 16
+    
+  - platform: smartir
+    name: Condizionatore Alessio
+    device_code: 1380
+    controller_data: remote.broadlink_rm3_mini
+    temperature_sensor: sensor.temperatura_camera_alessio
+    power_sensor: binary_sensor.ac_power

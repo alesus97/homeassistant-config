@@ -1,0 +1,80 @@
+
+- platform: sql
+  db_url: sqlite:///config/home-assistant_v2.db
+  queries:
+    - name: States Table Size
+      query: "SELECT SUM(pgsize) AS bytes FROM dbstat WHERE name = 'states'"
+      column: "bytes"
+      #value_template: "{{ (value | int / 1048576) | round(2) }}"
+    # - name: Index States Context ID Size
+    #   query: "SELECT SUM(pgsize) AS bytes FROM dbstat WHERE name = 'ix_states_context_id_bin'"
+    #   column: "bytes"
+    #   value_template: "{{ (value | int / 1048576) | round(2) }}"
+    # - name: Index States Metadata ID Size
+    #   query: "SELECT SUM(pgsize) AS bytes FROM dbstat WHERE name = 'ix_states_metadata_id_last_updated_ts'"
+    #   column: "bytes"
+    #   value_template: "{{ (value | int / 1048576) | round(2) }}"
+    # - name: Index States Last Updated Size
+    #   query: "SELECT SUM(pgsize) AS bytes FROM dbstat WHERE name = 'ix_states_last_updated_ts'"
+    #   column: "bytes"
+    #   value_template: "{{ (value | int / 1048576) | round(2) }}"
+    # - name: Index States Old State ID Size
+    #   query: "SELECT SUM(pgsize) AS bytes FROM dbstat WHERE name = 'ix_states_old_state_id'"
+    #   column: "bytes"
+    #   value_template: "{{ (value | int / 1048576) | round(2) }}"
+    # - name: Statistics Short Term Size
+    #   query: "SELECT SUM(pgsize) AS bytes FROM dbstat WHERE name = 'statistics_short_term'"
+    #   column: "bytes"
+    #   value_template: "{{ (value | int / 1048576) | round(2) }}"
+    # - name: Index States Attributes ID Size
+    #   query: "SELECT SUM(pgsize) AS bytes FROM dbstat WHERE name = 'ix_states_attributes_id'"
+    #   column: "bytes"
+    #   value_template: "{{ (value | int / 1048576) | round(2) }}"
+    # - name: Events Table Size
+    #   query: "SELECT SUM(pgsize) AS bytes FROM dbstat WHERE name = 'events'"
+    #   column: "bytes"
+    #   value_template: "{{ (value | int / 1048576) | round(2) }}"
+    # - name: Index Events Context ID Size
+    #   query: "SELECT SUM(pgsize) AS bytes FROM dbstat WHERE name = 'ix_events_context_id_bin'"
+    #   column: "bytes"
+    #   value_template: "{{ (value | int / 1048576) | round(2) }}"
+    # - name: Index Statistics Short Term ID Start TS Size
+    #   query: "SELECT SUM(pgsize) AS bytes FROM dbstat WHERE name = 'ix_statistics_short_term_statistic_id_start_ts'"
+    #   column: "bytes"
+    #   value_template: "{{ (value | int / 1048576) | round(2) }}"
+    # - name: Index Events Event Type ID Time Fired TS Size
+    #   query: "SELECT SUM(pgsize) AS bytes FROM dbstat WHERE name = 'ix_events_event_type_id_time_fired_ts'"
+    #   column: "bytes"
+    #   value_template: "{{ (value | int / 1048576) | round(2) }}"
+    # - name: Index Events Time Fired TS Size
+    #   query: "SELECT SUM(pgsize) AS bytes FROM dbstat WHERE name = 'ix_events_time_fired_ts'"
+    #   column: "bytes"
+    #   value_template: "{{ (value | int / 1048576) | round(2) }}"
+    # - name: Index Statistics Short Term Start TS Size
+    #   query: "SELECT SUM(pgsize) AS bytes FROM dbstat WHERE name = 'ix_statistics_short_term_start_ts'"
+    #   column: "bytes"
+    #   value_template: "{{ (value | int / 1048576) | round(2) }}"
+    # - name: Event Data Table Size
+    #   query: "SELECT SUM(pgsize) AS bytes FROM dbstat WHERE name = 'event_data'"
+    #   column: "bytes"
+    #   value_template: "{{ (value | int / 1048576) | round(2) }}"
+    # - name: Index Events Data ID Size
+    #   query: "SELECT SUM(pgsize) AS bytes FROM dbstat WHERE name = 'ix_events_data_id'"
+    #   column: "bytes"
+    #   value_template: "{{ (value | int / 1048576) | round(2) }}"
+    # - name: State Attributes Table Size
+    #   query: "SELECT SUM(pgsize) AS bytes FROM dbstat WHERE name = 'state_attributes'"
+    #   column: "bytes"
+    #   value_template: "{{ (value | int / 1048576) | round(2) }}"
+    # - name: Statistics Table Size
+    #   query: "SELECT SUM(pgsize) AS bytes FROM dbstat WHERE name = 'statistics'"
+    #   column: "bytes"
+    #   value_template: "{{ (value | int / 1048576) | round(2) }}"
+    # - name: Recorder Runs Size
+    #   query: "SELECT SUM(pgsize) AS bytes FROM dbstat WHERE name = 'recorder_runs'"
+    #   column: "bytes"
+    #   value_template: "{{ (value | int / 1048576) | round(2) }}"
+    # - name: Event Types Table Size
+    #   query: "SELECT SUM(pgsize) AS bytes FROM dbstat WHERE name = 'event_types'"
+    #   column: "bytes"
+    #   value_template: "{{ (value | int / 1048576) | round(2) }}"
