@@ -1,6 +1,9 @@
 # Secrets
 secrets.yaml
 
+#
+ip_bans.yaml
+
 # Database
 home-assistant_v2.db
 home-assistant_v2.db-shm

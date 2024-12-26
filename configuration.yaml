@@ -16,7 +16,8 @@ homeassistant:
   customize: !include customize.yaml
   allowlist_external_dirs: #Serve per far vedere il db dal sensore della dimensione
     - /config
-  
+
+my:
 
 ####################################################
 #                                                  #
@@ -116,6 +117,7 @@ ios:
 shopping_list:
 wake_on_lan:
 #smartir:
+
 
 ####################################################
 #                                                  #
