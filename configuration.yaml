@@ -46,7 +46,7 @@ http:
   #ssl_certificate: /ssl/fullchain.pem
   #ssl_key: /ssl/privkey.pem
   ip_ban_enabled: true
-  login_attempts_threshold: 3
+  login_attempts_threshold: 10
 
   #server_port: 34000
 
@@ -129,7 +129,7 @@ climate:
   - platform: generic_thermostat
     name: Riscaldamento
     heater: switch.riscaldamento
-    target_sensor: sensor.corrdoio_temperatura
+    target_sensor: sensor.corridoio_temperatura
     min_temp: 15
     max_temp: 30
     ac_mode: False
