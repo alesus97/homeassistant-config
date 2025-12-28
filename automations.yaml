@@ -1,1 +1,100 @@
-[]
+- id: '1750690604491'
+  alias: Papà ha lasciato Casa Anna
+  description: ''
+  triggers:
+  - device_id: c35b3617c0785264f1806ba6af9105c6
+    domain: device_tracker
+    entity_id: 934772ef412805925644df9207ce3f5b
+    type: leaves
+    trigger: device
+    zone: zone.casa_anna
+  conditions: []
+  actions:
+  - action: notify.mobile_app_iphone_di_alessio
+    data:
+      message: Papà ha lasciato Casa Anna
+      title: Avviso
+  mode: single
+- id: '1751975103519'
+  alias: Papà ha lasciato Lavoro
+  description: ''
+  triggers:
+  - device_id: c35b3617c0785264f1806ba6af9105c6
+    domain: device_tracker
+    entity_id: 934772ef412805925644df9207ce3f5b
+    type: leaves
+    trigger: device
+    zone: zone.lavoro_massimo
+  conditions: []
+  actions:
+  - action: notify.mobile_app_iphone_di_alessio
+    data:
+      message: Papà ha lasciato Lavoro
+      title: Avviso
+  mode: single
+- id: '1763318079459'
+  alias: Papà ha lasciato Casa Sara
+  description: ''
+  triggers:
+  - device_id: c35b3617c0785264f1806ba6af9105c6
+    domain: device_tracker
+    entity_id: 934772ef412805925644df9207ce3f5b
+    type: leaves
+    trigger: device
+    zone: zone.casa_sara
+  conditions: []
+  actions:
+  - action: notify.mobile_app_iphone_di_alessio
+    data:
+      message: Papà ha lasciato Casa Anna
+      title: Avviso
+  mode: single
+- id: '1764278680422'
+  alias: Notifica - Riscaldamento attivo (silenziosa e completa)
+  description: Invia una notifica quando il riscaldamento passa da OFF a HEATING
+  triggers:
+  - entity_id: climate.riscaldamento
+    from: 'off'
+    to: heating
+    trigger: state
+  actions:
+  - data:
+      title: "\U0001F525 Riscaldamento attivato"
+      message: "Il riscaldamento è in funzione. \U0001F321 Temperatura interna: {{
+        state_attr('climate.riscaldamento','current_temperature') }}°C\n"
+      data:
+        push:
+          sound: none
+        persistent: true
+        actions:
+        - action: SPEGNI_RISCALDAMENTO
+          title: ❌ Spegni
+          destructive: true
+    action: notify.mobile_app_iphone_di_alessio
+  mode: single
+- id: '1764280119505'
+  alias: Pulsante Notifica - Spegni Riscaldamento
+  description: ''
+  triggers:
+  - event_type: mobile_app_notification_action
+    event_data:
+      action: SPEGNI_RISCALDAMENTO
+    trigger: event
+  actions:
+  - target:
+      entity_id: climate.riscaldamento
+    action: climate.turn_off
+  mode: single
+- id: '1766360377429'
+  alias: Spegni Albero
+  description: ''
+  triggers:
+  - trigger: time
+    at: 03:00:00
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: abf423299d3335022dad867f9f59f5a7
+    entity_id: 8abbbc398c31e77dfe1213db55b31bef
+    domain: switch
+  mode: single

@@ -43,17 +43,11 @@ my:
 ####################################################
 
 http:
-  #ssl_certificate: /ssl/fullchain.pem
-  #ssl_key: /ssl/privkey.pem
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.30.33.0/24
   ip_ban_enabled: true
   login_attempts_threshold: 10
-
-  #server_port: 34000
-
-
-frontend:
-  themes: !include_dir_merge_named themes
-
 
 ####################################################
 #                                                  #
@@ -117,6 +111,8 @@ ios:
 shopping_list:
 wake_on_lan:
 #smartir:
+frontend:
+themes: !include_dir_merge_named themes
 
 
 ####################################################

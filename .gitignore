@@ -44,6 +44,12 @@ media/
 # Image cache
 images/
 
+themes/
+
+.ha_run.lock
+
+image/
+
 .storage/
 
 blueprints/
