@@ -1,0 +1,258 @@
+substitutions:
+  devicename: e1
+  friendly: "e1"
+  fw_version: "0.0.1"
+
+esphome:
+  name: ${devicename}
+  friendly_name: ${friendly}
+  name_add_mac_suffix: false
+
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+
+# ---- LOG: più leggero e senza UART (meno blocchi/event loop) ----
+logger:
+  level: INFO
+  baud_rate: 0
+
+# ---- API: evita reboot/loop se HA “perde” l’ESP per un attimo ----
+api:
+  reboot_timeout: 0s
+
+ota:
+  - platform: esphome
+
+web_server:
+  port: 8080
+
+captive_portal:
+
+wifi:
+  ssid: FASTWEB-CASA
+  password: AlessioChiara
+  
+  power_save_mode: none
+  fast_connect: true
+
+  ap:
+    ssid: "${friendly} Wifi"
+    password: "admin123"
+
+  #use_address: 192.168.1.58
+
+  # (opzionale) potenza massima Wi‑Fi per stabilità in ambienti difficili
+  # output_power: 20.5dB
+
+# ---- Diagnostica utile per capire se è rete o firmware ----
+sensor:
+  - platform: wifi_signal
+    name: "${friendly} WiFi RSSI"
+    update_interval: 60s
+
+  - platform: uptime
+    name: "${friendly} Uptime"
+   
+  - platform: internal_temperature
+    name: "${friendly} ESP Temperature"
+ 
+
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: "${friendly} IP"
+    ssid:
+      name: "${friendly} SSID" 
+    mac_address:
+      name: "${friendly} MAC"
+  
+  - platform: template
+    name: "${friendly} Firmware Version"
+    icon: mdi:tag
+    update_interval: never
+    lambda: |-
+      return {"${fw_version}"};
+  
+  - platform: template
+    name: "${friendly} Firmware Author"
+    icon: mdi:account
+    update_interval: never
+    lambda: |-
+      return {"Alessio Carusio"};
+
+  - platform: template
+    name: "${friendly} Firmware Notes"
+    icon: mdi:note-text
+    update_interval: never
+    lambda: |-
+      return {"ESP32 + MCP23S17, 8 relays, 8 buttons"};
+    
+  
+    
+  
+
+# ─── SPI + MCP23S17 ─────────────────────────────────────
+spi:
+  clk_pin: GPIO18
+  mosi_pin: GPIO23
+  miso_pin: GPIO19
+
+mcp23s17:
+  - id: mcp0
+    cs_pin: GPIO5
+    spi_mode: 0
+    # deviceaddress: 0  # default
+
+# ─── RELÈ (GPB0..GPB7 → 8..15) ──────────────────────────
+output:
+  - platform: gpio
+    id: relay1_out
+    pin: { mcp23xxx: mcp0, number: 8,  mode: OUTPUT, inverted: true }
+  - platform: gpio
+    id: relay2_out
+    pin: { mcp23xxx: mcp0, number: 9,  mode: OUTPUT, inverted: true }
+  - platform: gpio
+    id: relay3_out
+    pin: { mcp23xxx: mcp0, number: 10, mode: OUTPUT, inverted: true }
+  - platform: gpio
+    id: relay4_out
+    pin: { mcp23xxx: mcp0, number: 11, mode: OUTPUT, inverted: true }
+  - platform: gpio
+    id: relay5_out
+    pin: { mcp23xxx: mcp0, number: 12, mode: OUTPUT, inverted: true }
+  - platform: gpio
+    id: relay6_out
+    pin: { mcp23xxx: mcp0, number: 13, mode: OUTPUT, inverted: true }
+  - platform: gpio
+    id: relay7_out
+    pin: { mcp23xxx: mcp0, number: 14, mode: OUTPUT, inverted: true }
+  - platform: gpio
+    id: relay8_out
+    pin: { mcp23xxx: mcp0, number: 15, mode: OUTPUT, inverted: true }
+
+switch:
+  - platform: output
+    name: "Relay 1"
+    id: relay1
+    output: relay1_out
+    restore_mode: RESTORE_DEFAULT_OFF
+  - platform: output
+    name: "Relay 2"
+    id: relay2
+    output: relay2_out
+    restore_mode: RESTORE_DEFAULT_OFF
+  - platform: output
+    name: "Relay 3"
+    id: relay3
+    output: relay3_out
+    restore_mode: RESTORE_DEFAULT_OFF
+  - platform: output
+    name: "Relay 4"
+    id: relay4
+    output: relay4_out
+    restore_mode: RESTORE_DEFAULT_OFF
+  - platform: output
+    name: "Relay 5"
+    id: relay5
+    output: relay5_out
+    restore_mode: RESTORE_DEFAULT_OFF
+  - platform: output
+    name: "Relay 6"
+    id: relay6
+    output: relay6_out
+    restore_mode: RESTORE_DEFAULT_OFF
+  - platform: output
+    name: "Relay 7"
+    id: relay7
+    output: relay7_out
+    restore_mode: RESTORE_DEFAULT_OFF
+  - platform: output
+    name: "Relay 8"
+    id: relay8
+    output: relay8_out
+    restore_mode: RESTORE_DEFAULT_OFF
+
+# ─── PULSANTI (GPA0..GPA7 → 0..7) ────────────────────────
+# Nota: su expander (MCP) gli interrupt “interni” dell’ESP non si applicano come per GPIO locali.
+# I filtri servono a stabilizzare il segnale (debounce). [6](https://esphome.io/components/binary_sensor/gpio/)[7](https://www.ncnynl.com/docs/en/esphome/components/binary_sensor/gpio.html)
+binary_sensor:
+  
+  - platform: status
+    name: "${friendly} Online"
+
+
+  - platform: gpio
+    name: "Pulsante 1"
+    pin: { mcp23xxx: mcp0, number: 0, inverted: true, mode: { input: true, pullup: true } }
+    filters:
+      - delayed_on: 40ms
+      - delayed_off: 40ms
+    on_press:
+      - switch.toggle: relay1
+
+  - platform: gpio
+    name: "Pulsante 2"
+    pin: { mcp23xxx: mcp0, number: 1, inverted: true, mode: { input: true, pullup: true } }
+    filters:
+      - delayed_on: 40ms
+      - delayed_off: 40ms
+    on_press:
+      - switch.toggle: relay2
+
+  - platform: gpio
+    name: "Pulsante 3"
+    pin: { mcp23xxx: mcp0, number: 2, inverted: true, mode: { input: true, pullup: true } }
+    filters:
+      - delayed_on: 40ms
+      - delayed_off: 40ms
+    on_press:
+      - switch.toggle: relay3
+
+  - platform: gpio
+    name: "Pulsante 4"
+    pin: { mcp23xxx: mcp0, number: 3, inverted: true, mode: { input: true, pullup: true } }
+    filters:
+      - delayed_on: 40ms
+      - delayed_off: 40ms
+    on_press:
+      - switch.toggle: relay4
+
+  - platform: gpio
+    name: "Pulsante 5"
+    pin: { mcp23xxx: mcp0, number: 4, inverted: true, mode: { input: true, pullup: true } }
+    filters:
+      - delayed_on: 40ms
+      - delayed_off: 40ms
+    on_press:
+      - switch.toggle: relay5
+
+  - platform: gpio
+    name: "Pulsante 6"
+    pin: { mcp23xxx: mcp0, number: 5, inverted: true, mode: { input: true, pullup: true } }
+    filters:
+      - delayed_on: 40ms
+      - delayed_off: 40ms
+    on_press:
+      - switch.toggle: relay6
+
+  - platform: gpio
+    name: "Pulsante 7"
+    pin: { mcp23xxx: mcp0, number: 6, inverted: true, mode: { input: true, pullup: true } }
+    filters:
+      - delayed_on: 40ms
+      - delayed_off: 40ms
+    on_press:
+      - switch.toggle: relay7
+
+  - platform: gpio
+    name: "Pulsante 8"
+    pin: { mcp23xxx: mcp0, number: 7, inverted: true, mode: { input: true, pullup: true } }
+    filters:
+      - delayed_on: 40ms
+      - delayed_off: 40ms
+    on_press:
+      - switch.toggle: relay8
