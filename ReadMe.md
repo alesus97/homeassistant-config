@@ -3,7 +3,7 @@
 
 [![GitHub stars](https://img.shields.io/github/stars/alesus97/homeassistant-config)](https://github.com/alesus97/homeassistant-config)
 [![GitHub last commit](https://img.shields.io/github/last-commit/alesus97/homeassistant-config)](https://github.com/alesus97/homeassistant-config/commits/master)
-[![Home Assistant Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/alesus97/homeassistant-config/main/.ha_run.lock&query=$.ha_version&label=Home%20Assistant&color=41BDF5&logo=home-assistant&style=for-the-badge](https://www.home-assistant.io/)
+[![Home Assistant Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/alesus97/homeassistant-config/main/.ha_run.lock&query=$.ha_version&label=Home%20Assistant&color=41BDF5&logo=home-assistant&style=for-the-badge)](https://www.home-assistant.io/)
 # Devices
 
 
