@@ -19,35 +19,6 @@ homeassistant:
 
 my:
 
-####################################################
-#                                                  #
-#                     CLOUD                        #
-#                                                  #
-####################################################
-
-#cloud:
-#  alexa:
-#    filter:
-#      include_entities:
-#        - climate.riscaldamento
-#        - cover.tapparella_camera_alessio
-#        - sensor.temperatura_camera_alessio
-#        - sensor.temperatura_corridoio
-#        - sensor.temperatura_esterna_strada
-#        - switch.accensione_alessio_pc_fisso
-
-####################################################
-#                                                  #
-#                     HTTP                         #
-#                                                  #
-####################################################
-
-http:
-  use_x_forwarded_for: true
-  trusted_proxies:
-    - 172.30.33.0/24
-  ip_ban_enabled: true
-  login_attempts_threshold: 10
 
 ####################################################
 #                                                  #
@@ -60,7 +31,7 @@ logger:
   logs:
     # log level for HA core
     homeassistant.core: fatal
-    
+
 
 ####################################################
 #                                                  #
@@ -72,12 +43,13 @@ logger:
 recorder:
   commit_interval: 300  #seconds
   purge_keep_days: 7
+  auto_purge: true
   include:
     domains:
       - sensor
-      - lights
-      - temperature
-
+      - switch
+      - light
+      - climate
 
 
 
@@ -112,7 +84,7 @@ shopping_list:
 wake_on_lan:
 #smartir:
 frontend:
-themes: !include_dir_merge_named themes
+#themes: !include_dir_merge_named themes
 
 
 ####################################################
@@ -144,3 +116,80 @@ climate:
     controller_data: remote.broadlink_rm3_mini
     temperature_sensor: sensor.temperatura_camera_alessio
     power_sensor: binary_sensor.ac_power
+
+template:
+  - sensor:
+      - name: "Spina 1 Costo Oggi"
+        unit_of_measurement: "€"
+        state: >
+          {{ (states('sensor.spina1_energy_today') | float * 0.25) | round(2) }}
+
+      - name: "Spina 2 Costo Oggi"
+        unit_of_measurement: "€"
+        state: >
+          {{ (states('sensor.spina2_energy_today') | float * 0.25) | round(2) }}
+
+      - name: "Spina1 Firmware Clean"
+        unique_id: spina1_firmware_clean
+        state: >
+          {{ states('sensor.spina1_firmware_version') | replace('(release-tasmota)', '') | trim }}
+
+      - name: "Spina2 Firmware Clean"
+        unique_id: spina2_firmware_clean
+        state: >
+          {{ states('sensor.spina2_firmware_version') | replace('(release-tasmota)', '') | trim }}
+
+      - name: "LuceCucina Firmware Clean"
+        unique_id: luce_cucina_firmware_clean
+        state: >
+          {{ states('sensor.luce_cucina_firmware_version') | replace('(release-tasmota)', '') | trim }}
+
+      - name: "LuceCameraAlessio Firmware Clean"
+        unique_id: luce_camera_alessio_firmware_clean
+        state: >
+          {{ states('sensor.luce_camera_alessio_firmware_version') | replace('(release-tasmota)', '') | trim }}
+
+      - name: "LuceCorridoio Firmware Clean"
+        unique_id: luce_corridoio_firmware_clean
+        state: >
+          {{ states('sensor.luce_corridoio_firmware_version') | replace('(release-tasmota)', '') | trim }}
+
+      - name: "LuceSoggiorno1 Firmware Clean"
+        unique_id: lucesoggiorno1_firmware_clean
+        state: >
+          {{ states('sensor.lucesoggiorno1_firmware_version') | replace('(release-tasmota)', '') | trim }}
+
+      - name: "LuceSoggiorno2 Firmware Clean"
+        unique_id: lucesoggiorno2_firmware_clean
+        state: >
+          {{ states('sensor.lucesoggiorno2_firmware_version') | replace('(release-tasmota)', '') | trim }}
+
+      - name: "Riscaldamento Firmware Clean"
+        unique_id: riscaldamento_firmware_clean
+        state: >
+          {{ states('sensor.riscaldamento_firmware_version') | replace('(release-tasmota)', '') | trim }}
+
+      - name: "Tapparella Camera Alessio Firmware Clean"
+        unique_id: tapparella_camera_alessio_firmware_clean
+        state: >
+          {{ states('sensor.tapparella_camera_alessio_firmware_version') | replace('(release-tasmota)', '') | trim }}
+
+utility_meter:
+  spina1_energy_month:
+    source: sensor.spina1_energy_total
+    cycle: monthly
+
+  spina2_energy_month:
+    source: sensor.spina2_energy_total
+    cycle: monthly
+
+command_line:
+  - sensor:
+      name: Proxmox CPU Temperature
+      unique_id: proxmox_cpu_temperature
+      command: >
+        ssh -i /config/.ssh/id_ed25519 -o StrictHostKeyChecking=no root@192.168.1.125 "sensors | awk '/Package id 0/ {gsub(/[+°C]/,\"\",\$4); print \$4}'"
+      unit_of_measurement: "°C"
+      device_class: temperature
+      state_class: measurement
+      scan_interval: 60

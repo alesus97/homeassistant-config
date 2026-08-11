@@ -18,6 +18,8 @@ home-assistant.log*
 *.pyc
 *.swp
 __pycache__/
+.cache
+
 .tmp
 
 # Backup files
@@ -53,3 +55,5 @@ image/
 .storage/
 
 blueprints/
+.ssh/
+esphome/

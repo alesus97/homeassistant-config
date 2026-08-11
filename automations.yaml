@@ -46,7 +46,7 @@
   actions:
   - action: notify.mobile_app_iphone_di_alessio
     data:
-      message: Papà ha lasciato Casa Anna
+      message: Papà ha lasciato Casa Sara
       title: Avviso
   mode: single
 - id: '1764278680422'
@@ -97,4 +97,30 @@
     device_id: abf423299d3335022dad867f9f59f5a7
     entity_id: 8abbbc398c31e77dfe1213db55b31bef
     domain: switch
+  mode: single
+- id: '1778532977753'
+  alias: Riavvio deCONZ se tutti i sensori sono offline
+  description: ''
+  triggers:
+  - entity_id:
+    - sensor.camera_da_letto_temperatura
+    - sensor.bagno_piccolo_temperatura
+    - sensor.corridoio_temperatura
+    - sensor.cucina_temperatura
+    - sensor.esterno_parco_temperatura
+    trigger: state
+  conditions:
+  - condition: template
+    value_template: "{{\n  is_state('sensor.camera_da_letto_temperatura', 'unavailable')
+      and\n  is_state('sensor.bagno_piccolo_temperatura', 'unavailable') and\n  is_state('sensor.corridoio_temperatura',
+      'unavailable') and\n  is_state('sensor.cucina_temperatura', 'unavailable') and\n
+      \ is_state('sensor.esterno_parco_temperatura', 'unavailable')\n}}\n"
+  actions:
+  - data:
+      level: warning
+      message: Tutti i sensori temperatura sono offline. Riavvio deCONZ.
+    action: system_log.write
+  - data:
+      addon: core_deconz
+    action: hassio.addon_restart
   mode: single
