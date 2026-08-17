@@ -19,7 +19,7 @@ homeassistant:
 
 my:
 
-
+history: !include history.yaml
 ####################################################
 #                                                  #
 #                     LOGGER                       #
