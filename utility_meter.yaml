@@ -1,0 +1,14 @@
+####################################################
+#                                                  #
+#                  UTILITY METER                   #
+#                                                  #
+####################################################
+
+
+spina1_energy_month:
+  source: sensor.spina1_energy_total
+  cycle: monthly
+
+spina2_energy_month:
+  source: sensor.spina2_energy_total
+  cycle: monthly

@@ -1,0 +1,18 @@
+####################################################
+#                                                  #
+#                  COMMAND LINE                    #
+#                                                  #
+####################################################
+
+- sensor:
+    name: Proxmox CPU Temperature
+    unique_id: proxmox_cpu_temperature
+    command: >
+      ssh -i /config/.ssh/id_ed25519
+      -o StrictHostKeyChecking=no
+      root@192.168.1.125
+      "sensors | awk '/Package id 0/ {gsub(/[+°C]/,\"\",\$4); print \$4}'"
+    unit_of_measurement: "°C"
+    device_class: temperature
+    state_class: measurement
+    scan_interval: 60

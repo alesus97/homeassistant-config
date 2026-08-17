@@ -1,0 +1,22 @@
+####################################################
+#                                                  #
+#                      REST                        #
+#                                                  #
+####################################################
+
+
+- resource: https://api.github.com/repos/arendst/Tasmota/releases/latest
+  scan_interval: 21600   # ogni 6 ore
+  headers:
+    Accept: application/vnd.github+json
+    User-Agent: HomeAssistant
+  sensor:
+    - name: Tasmota Latest Version
+      unique_id: tasmota_latest_version
+      icon: mdi:package-up
+      value_template: "{{ value_json.tag_name | regex_replace('^v', '') }}"
+      json_attributes:
+        - tag_name
+        - name
+        - html_url
+        - published_at

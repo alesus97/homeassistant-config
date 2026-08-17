@@ -1,0 +1,30 @@
+####################################################
+#                                                  #
+#                     CLIMATE                      #
+#                                                  #
+####################################################
+
+
+- platform: generic_thermostat
+  name: Riscaldamento
+  heater: switch.riscaldamento
+  target_sensor: sensor.corridoio_temperatura
+  min_temp: 15
+  max_temp: 30
+  ac_mode: False
+  cold_tolerance: 0.5
+  hot_tolerance: 0
+  min_cycle_duration:
+    seconds: 5
+  keep_alive:
+    minutes: 3
+  initial_hvac_mode: "off"
+  away_temp: 16
+  
+- platform: smartir
+  name: Condizionatore Alessio
+  device_code: 1380
+  controller_data: remote.broadlink_rm3_mini
+  temperature_sensor: sensor.temperatura_camera_alessio
+  power_sensor: binary_sensor.ac_power
+  
