@@ -1,1 +1,42 @@
-{}
+golf_8_revisione_fatta:
+  alias: Golf 8 · Revisione fatta
+  icon: mdi:clipboard-check-outline
+  mode: single
+  sequence:
+  - action: input_datetime.set_datetime
+    target:
+      entity_id: input_datetime.golf_8_scadenza_revisione
+    data:
+      date: '{% set first = now().replace(year=now().year + 2, day=1) %} {% set next_first
+        = (first + timedelta(days=32)).replace(day=1) %} {{ (next_first - timedelta(days=1)).date()
+        }}
+
+        '
+golf_8_bollo_pagato:
+  alias: Golf 8 · Bollo pagato
+  icon: mdi:cash-check
+  mode: single
+  sequence:
+  - action: input_datetime.set_datetime
+    target:
+      entity_id: input_datetime.golf_8_scadenza_bollo
+    data:
+      date: '{% set d = states(''input_datetime.golf_8_scadenza_bollo'') | as_datetime(none)
+        %} {% set d = d if d and d.year > 2000 else ''2026-09-30'' | as_datetime %}
+        {{ d.replace(year=d.year + 1).date() }}
+
+        '
+golf_8_assicurazione_rinnovata:
+  alias: Golf 8 · Assicurazione rinnovata
+  icon: mdi:shield-check
+  mode: single
+  sequence:
+  - action: input_datetime.set_datetime
+    target:
+      entity_id: input_datetime.golf_8_scadenza_assicurazione
+    data:
+      date: '{% set d = states(''input_datetime.golf_8_scadenza_assicurazione'') |
+        as_datetime(none) %} {% set d = d if d else ''2026-09-14'' | as_datetime %}
+        {{ d.replace(year=d.year + 1).date() }}
+
+        '

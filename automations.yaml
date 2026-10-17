@@ -10,10 +10,13 @@
     zone: zone.casa_anna
   conditions: []
   actions:
-  - action: notify.mobile_app_iphone_di_alessio
+  - action: notify.send_message
+    metadata: {}
+    target:
+      entity_id: notify.iphone_di_alessio
     data:
       message: Papà ha lasciato Casa Anna
-      title: Avviso
+      title: Avviso uscita dal Vomero
   mode: single
 - id: '1751975103519'
   alias: Papà ha lasciato Lavoro
@@ -50,27 +53,29 @@
       title: Avviso
   mode: single
 - id: '1764278680422'
-  alias: Notifica - Riscaldamento attivo (silenziosa e completa)
-  description: Invia una notifica quando il riscaldamento passa da OFF a HEATING
+  alias: Notifica - Riscaldamento attivo
+  description: Invia una Live Activity quando il riscaldamento passa da OFF a HEAT
   triggers:
-  - entity_id: climate.riscaldamento
+  - trigger: state
+    entity_id:
+    - climate.riscaldamento
     from: 'off'
-    to: heating
-    trigger: state
+    to: heat
   actions:
-  - data:
-      title: "\U0001F525 Riscaldamento attivato"
-      message: "Il riscaldamento è in funzione. \U0001F321 Temperatura interna: {{
-        state_attr('climate.riscaldamento','current_temperature') }}°C\n"
+  - action: notify.mobile_app_iphone_di_alessio
+    data:
+      title: "\U0001F525 Riscaldamento attivo"
+      message: "\U0001F321 {{ state_attr('climate.riscaldamento', 'current_temperature')
+        }} °C"
       data:
-        push:
-          sound: none
-        persistent: true
+        tag: riscaldamento
+        live_update: true
+        notification_icon: mdi:fire
+        url: https://casacarusio.duckdns.org:20000/lovelace/temperature?more-info-entity-id=climate.riscaldamento&more-info-view=info
         actions:
         - action: SPEGNI_RISCALDAMENTO
           title: ❌ Spegni
           destructive: true
-    action: notify.mobile_app_iphone_di_alessio
   mode: single
 - id: '1764280119505'
   alias: Pulsante Notifica - Spegni Riscaldamento
@@ -124,3 +129,134 @@
       addon: core_deconz
     action: hassio.addon_restart
   mode: single
+- id: '1790535233291'
+  alias: Papà è a casa
+  description: ''
+  triggers:
+  - trigger: zone.entered
+    target:
+      entity_id: device_tracker.sm_s721b
+    options:
+      behavior: each
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 30
+      zone: zone.home
+  conditions: []
+  actions:
+  - action: notify.mobile_app_iphone_di_alessio
+    metadata: {}
+    data:
+      message: Papà è a casa
+      title: Papà è a casa
+  mode: single
+- id: '1790535888615'
+  alias: Notifica - Riscaldamento spento
+  description: Chiude la Live Activity del riscaldamento
+  triggers:
+  - trigger: state
+    entity_id: climate.riscaldamento
+    to: 'off'
+  actions:
+  - action: notify.mobile_app_iphone_di_alessio
+    data:
+      message: clear_notification
+      data:
+        tag: riscaldamento
+  mode: single
+- id: '1791738998006'
+  alias: Golf 8 · Imposta scadenze di default
+  description: Imposta bollo, revisione e assicurazione solo se gli aiutanti sono
+    appena stati creati (contengono la data di creazione)
+  triggers:
+  - trigger: homeassistant
+    event: start
+  - trigger: event
+    event_type: automation_reloaded
+  actions:
+  - if:
+    - condition: template
+      value_template: '{% set d = states(''input_datetime.golf_8_scadenza_bollo'')
+        %} {{ d > ''2026-09-30'' and d < ''2027-09-30'' }}
+
+        '
+    then:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.golf_8_scadenza_bollo
+      data:
+        date: '2026-09-30'
+  - if:
+    - condition: template
+      value_template: '{% set d = states(''input_datetime.golf_8_scadenza_revisione'')
+        %} {{ d < ''2027-09-30'' }}
+
+        '
+    then:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.golf_8_scadenza_revisione
+      data:
+        date: '2027-09-30'
+  - if:
+    - condition: template
+      value_template: '{% set d = states(''input_datetime.golf_8_scadenza_assicurazione'')
+        %} {{ d > ''2026-09-14'' and d < ''2027-09-14'' }}
+
+        '
+    then:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.golf_8_scadenza_assicurazione
+      data:
+        date: '2026-09-14'
+  mode: single
+- id: '1791742912583'
+  alias: Golf 8 · Salva parcheggio
+  description: Salva la posizione quando l'iPhone lascia il Wi-Fi della Golf. Ignora
+    le riconnessioni entro 2 minuti.
+  triggers:
+  - trigger: state
+    entity_id: sensor.iphone_di_alessio_ssid
+    from: My VW 8075
+    not_to:
+    - unknown
+    - unavailable
+  actions:
+  - action: notify.mobile_app_iphone_di_alessio
+    data:
+      message: request_location_update
+  - delay: 00:00:10
+  - variables:
+      lat: '{{ state_attr(''device_tracker.iphone_di_alessio'', ''latitude'') }}'
+      lon: '{{ state_attr(''device_tracker.iphone_di_alessio'', ''longitude'') }}'
+      acc: '{{ state_attr(''device_tracker.iphone_di_alessio'', ''gps_accuracy'')
+        | int(-1) }}'
+      eta: '{{ ((now() - states.device_tracker.iphone_di_alessio.last_updated) .total_seconds()
+        / 60) | round(0) | int }}'
+      ind: '{{ states(''sensor.iphone_di_alessio_geocoded_location'') }}'
+  - condition: template
+    value_template: '{{ lat is number and lon is number }}'
+  - wait_for_trigger:
+    - trigger: state
+      entity_id: sensor.iphone_di_alessio_ssid
+      to: My VW 8075
+    timeout: 00:02:00
+    continue_on_timeout: true
+  - condition: template
+    value_template: '{{ wait.trigger is none }}'
+  - event: golf_8_parcheggio
+    event_data:
+      latitude: '{{ lat }}'
+      longitude: '{{ lon }}'
+      accuracy: '{{ acc }}'
+      indirizzo: '{{ ind }}'
+  - action: notify.mobile_app_iphone_di_alessio
+    data:
+      title: "\U0001F17F️ Golf parcheggiata"
+      message: '{{ ind }}{% if acc >= 0 %} · ±{{ acc }} m{% endif %} {% if eta > 5
+        %} ⚠️ Posizione di {{ eta }} min fa, verifica sulla mappa{% endif %}'
+      data:
+        url: https://maps.apple.com/?q={{ lat }},{{ lon }}
+  mode: restart

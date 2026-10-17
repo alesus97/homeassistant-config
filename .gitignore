@@ -14,6 +14,8 @@ home-assistant_v2.db-wal
 home-assistant.log*
 
 
+zigbee2mqtt/
+
 # Temporary files
 *.pyc
 *.swp

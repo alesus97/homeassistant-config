@@ -26,11 +26,11 @@ history: !include history.yaml
 #                                                  #
 ####################################################
 
-logger:
-  default: critical
-  logs:
-    # log level for HA core
-    homeassistant.core: fatal
+# logger:
+#   default: critical
+#   logs:
+#     # log level for HA core
+#     homeassistant.core: fatal
 
 
 ####################################################
@@ -65,7 +65,7 @@ tts:
 group: !include groups.yaml
 automation: !include automations.yaml
 sensor: !include sensors.yaml
-
+script: !include scripts.yaml
 mobile_app:
 ios:
 shopping_list:
@@ -83,64 +83,164 @@ climate: !include climate.yaml
 #                                                  #
 ####################################################
 
-template:
-  - sensor:
-      - name: "Spina 1 Costo Oggi"
-        unit_of_measurement: "€"
-        state: >
-          {{ (states('sensor.spina1_energy_today') | float * 0.25) | round(2) }}
+# template:
+#   - sensor:
+#       - name: "Spina 1 Costo Oggi"
+#         unit_of_measurement: "€"
+#         state: >
+#           {{ (states('sensor.spina1_energy_today') | float(0) * 0.25) | round(2) }}
 
-      - name: "Spina 2 Costo Oggi"
-        unit_of_measurement: "€"
-        state: >
-          {{ (states('sensor.spina2_energy_today') | float * 0.25) | round(2) }}
+#       - name: "Spina 2 Costo Oggi"
+#         unit_of_measurement: "€"
+#         state: >
+#           {{ (states('sensor.spina2_energy_today') | float(0) * 0.25) | round(2) }}
 
-      - name: "Spina1 Firmware Clean"
-        unique_id: spina1_firmware_clean
-        state: >
-          {{ states('sensor.spina1_firmware_version') | replace('(release-tasmota)', '') | trim }}
+#       - name: "Spina1 Firmware Clean"
+#         unique_id: spina1_firmware_clean
+#         state: >
+#           {{ states('sensor.spina1_firmware_version') | replace('(release-tasmota)', '') | trim }}
 
-      - name: "Spina2 Firmware Clean"
-        unique_id: spina2_firmware_clean
-        state: >
-          {{ states('sensor.spina2_firmware_version') | replace('(release-tasmota)', '') | trim }}
+#       - name: "Spina2 Firmware Clean"
+#         unique_id: spina2_firmware_clean
+#         state: >
+#           {{ states('sensor.spina2_firmware_version') | replace('(release-tasmota)', '') | trim }}
 
-      - name: "LuceCucina Firmware Clean"
-        unique_id: luce_cucina_firmware_clean
-        state: >
-          {{ states('sensor.luce_cucina_firmware_version') | replace('(release-tasmota)', '') | trim }}
+#       - name: "LuceCucina Firmware Clean"
+#         unique_id: luce_cucina_firmware_clean
+#         state: >
+#           {{ states('sensor.luce_cucina_firmware_version') | replace('(release-tasmota)', '') | trim }}
 
-      - name: "LuceCameraAlessio Firmware Clean"
-        unique_id: luce_camera_alessio_firmware_clean
-        state: >
-          {{ states('sensor.luce_camera_alessio_firmware_version') | replace('(release-tasmota)', '') | trim }}
+#       - name: "LuceCameraAlessio Firmware Clean"
+#         unique_id: luce_camera_alessio_firmware_clean
+#         state: >
+#           {{ states('sensor.luce_camera_alessio_firmware_version') | replace('(release-tasmota)', '') | trim }}
 
-      - name: "LuceCorridoio Firmware Clean"
-        unique_id: luce_corridoio_firmware_clean
-        state: >
-          {{ states('sensor.luce_corridoio_firmware_version') | replace('(release-tasmota)', '') | trim }}
+#       - name: "LuceCorridoio Firmware Clean"
+#         unique_id: luce_corridoio_firmware_clean
+#         state: >
+#           {{ states('sensor.luce_corridoio_firmware_version') | replace('(release-tasmota)', '') | trim }}
 
-      - name: "LuceSoggiorno1 Firmware Clean"
-        unique_id: lucesoggiorno1_firmware_clean
-        state: >
-          {{ states('sensor.lucesoggiorno1_firmware_version') | replace('(release-tasmota)', '') | trim }}
+#       - name: "LuceSoggiorno1 Firmware Clean"
+#         unique_id: lucesoggiorno1_firmware_clean
+#         state: >
+#           {{ states('sensor.lucesoggiorno1_firmware_version') | replace('(release-tasmota)', '') | trim }}
 
-      - name: "LuceSoggiorno2 Firmware Clean"
-        unique_id: lucesoggiorno2_firmware_clean
-        state: >
-          {{ states('sensor.lucesoggiorno2_firmware_version') | replace('(release-tasmota)', '') | trim }}
+#       - name: "LuceSoggiorno2 Firmware Clean"
+#         unique_id: lucesoggiorno2_firmware_clean
+#         state: >
+#           {{ states('sensor.lucesoggiorno2_firmware_version') | replace('(release-tasmota)', '') | trim }}
 
-      - name: "Riscaldamento Firmware Clean"
-        unique_id: riscaldamento_firmware_clean
-        state: >
-          {{ states('sensor.riscaldamento_firmware_version') | replace('(release-tasmota)', '') | trim }}
+#       - name: "Riscaldamento Firmware Clean"
+#         unique_id: riscaldamento_firmware_clean
+#         state: >
+#           {{ states('sensor.riscaldamento_firmware_version') | replace('(release-tasmota)', '') | trim }}
 
-      - name: "Tapparella Camera Alessio Firmware Clean"
-        unique_id: tapparella_camera_alessio_firmware_clean
-        state: >
-          {{ states('sensor.tapparella_camera_alessio_firmware_version') | replace('(release-tasmota)', '') | trim }}
+#       - name: "Tapparella Camera Alessio Firmware Clean"
+#         unique_id: tapparella_camera_alessio_firmware_clean
+#         state: >
+#           {{ states('sensor.tapparella_camera_alessio_firmware_version') | replace('(release-tasmota)', '') | trim }}
+
+#   - sensor:
+#       - name: "Golf 8 km medi mensili"
+#         unique_id: golf_8_km_medi_mensili
+#         unit_of_measurement: "km/mese"
+#         icon: mdi:chart-line
+#         availability: >
+#           {{ is_number(states('sensor.garage_golf_8_contachilometri')) }}
+#         state: >
+#           {% set data_inizio = '2026-09-28' %}
+#           {% set km_iniziali = 12363 %}
+#           {% set km_attuali = states('sensor.garage_golf_8_contachilometri') | float %}
+#           {% set giorni = (now().date() - as_datetime(data_inizio).date()).days %}
+#           {% set mesi = giorni / 30.4375 %}
+#           {{ ((km_attuali - km_iniziali) / mesi) | round(0)
+#              if mesi > 0 and km_attuali >= km_iniziali else 0 }}
+#   - binary_sensor:
+#       - name: "Tasmota Aggiornamento Disponibile"
+#         unique_id: tasmota_update_available
+#         state: >
+#           {% set latest = states('sensor.tasmota_latest_version') %}
+
+#           {% if latest in ['unknown', 'unavailable', 'none', ''] %}
+#             false
+#           {% else %}
+#             {% set lp = latest.split('.') %}
+#             {% set lat_num = (lp[0] | int(0)) * 1000000 + (lp[1] | int(0)) * 1000 + (lp[2] | int(0) if lp | length > 2 else 0) %}
+
+#             {% set ns = namespace(outdated=false) %}
+
+#             {% set fws = states.sensor
+#               | selectattr('entity_id', 'search', '_firmware_clean')
+#               | list %}
+
+#             {% for s in fws %}
+#               {% set v = s.state %}
+#               {% if v not in ['unknown', 'unavailable', 'none', ''] %}
+#                 {% set p = v.split('.') %}
+#                 {% set patch = p[2] | int(0) if p | length > 2 else 0 %}
+#                 {% set cur_num = (p[0] | int(0)) * 1000000 + (p[1] | int(0)) * 1000 + patch %}
+
+#                 {% if cur_num < lat_num %}
+#                   {% set ns.outdated = true %}
+#                 {% endif %}
+#               {% endif %}
+#             {% endfor %}
+
+#             {{ ns.outdated }}
+#           {% endif %}
+#         icon: >
+#           {{ 'mdi:package-up' if is_state('binary_sensor.tasmota_aggiornamento_disponibile', 'on') else 'mdi:package-variant-closed-check' }}
+
 
 utility_meter: !include utility_meter.yaml
 command_line: !include command_line.yaml
 rest: !include rest.yaml
+input_datetime: !include input_datetime.yaml
+template: !include templates.yaml
 
+# input_datetime:
+#   golf_8_scadenza_bollo:
+#     name: Golf 8 scadenza bollo
+#     icon: mdi:cash-clock
+#     has_date: true
+#     has_time: false
+#   golf_8_scadenza_revisione:
+#     name: Golf 8 scadenza revisione
+#     icon: mdi:car-cog
+#     has_date: true
+#     has_time: false
+
+
+# emulated_hue:
+#   host_ip: 192.168.1.111          # <-- IP del tuo Home Assistant
+#   advertise_ip: 192.168.1.111     # <-- stesso IP (aiuta la discovery dell'Echo)
+#   listen_port: 80                # gli Echo recenti trovano il bridge SOLO sulla porta 80
+#   upnp_bind_multicast: true
+#   expose_by_default: false       # esponi solo ciò che elenchi qui sotto
+#   exposed_domains:
+#     - switch
+#   entities:
+#     switch.e1_relay_1:
+#       name: "Relè 1"
+#       hidden: false
+#     switch.e1_relay_2:
+#       name: "Relè 2"
+#       hidden: false
+#     switch.e1_relay_3:
+#       name: "Relè 3"
+#       hidden: false
+#     switch.e1_relay_4:
+#       name: "Relè 4"
+#       hidden: false
+#     switch.e1_relay_5:
+#       name: "Relè 5"
+#       hidden: false
+#     switch.e1_relay_6:
+#       name: "Relè 6"
+#       hidden: false
+#     switch.e1_relay_7:
+#       name: "Relè 7"
+#       hidden: false
+#     switch.e1_relay_8:
+#       name: "Relè 8"
+#       hidden: false

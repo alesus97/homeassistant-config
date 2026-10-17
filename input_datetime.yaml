@@ -1,0 +1,23 @@
+####################################################
+#                                                  #
+#                 INPUT_DATETIME                   #
+#                                                  #
+####################################################
+
+golf_8_scadenza_bollo:
+  name: Golf 8 scadenza bollo
+  icon: mdi:cash-clock
+  has_date: true
+  has_time: false
+
+golf_8_scadenza_revisione:
+  name: Golf 8 scadenza revisione
+  icon: mdi:car-cog
+  has_date: true
+  has_time: false
+
+golf_8_scadenza_assicurazione:
+  name: Golf 8 scadenza assicurazione
+  icon: mdi:shield-car
+  has_date: true
+  has_time: false

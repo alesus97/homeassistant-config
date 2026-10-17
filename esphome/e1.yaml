@@ -1,41 +1,88 @@
 substitutions:
   devicename: e1
   friendly: "e1"
-  fw_version: "0.0.1"
+  fw_version: "1.0.0"
+
+
+globals:
+  - id: boot_count
+    type: int
+    restore_value: yes
+    initial_value: '0'
 
 esphome:
   name: ${devicename}
   friendly_name: ${friendly}
   name_add_mac_suffix: false
-
+  min_version: 2026.7.0
+  on_boot:
+    priority: -100
+    then:
+      - lambda: 'id(boot_count) += 1;'      # incrementa SOLO al boot reale
 
 esp32:
   board: esp32dev
   framework:
     type: esp-idf
 
-
 # ---- LOG: più leggero e senza UART (meno blocchi/event loop) ----
 logger:
   level: INFO
   baud_rate: 0
 
-# ---- API: evita reboot/loop se HA “perde” l’ESP per un attimo ----
+# ---- API: evita reboot/loop se HA "perde" l'ESP per un attimo ----
 api:
   reboot_timeout: 0s
+  on_client_connected:
+    - delay: 2s                              # lascia stabilizzare la connessione
+    - sensor.template.publish:
+        id: boot_count_sensor
+        state: !lambda 'return id(boot_count);'
+    - text_sensor.template.publish:
+        id: fw_version_txt
+        state: "${fw_version}"
+    - text_sensor.template.publish:
+        id: fw_author_txt
+        state: "Alessio Carusio"
+    - text_sensor.template.publish:
+        id: fw_notes_txt
+        state: "ESP32 + MCP23S17, 8 relays, 8 buttons"
 
-ota:
-  - platform: esphome
 
 web_server:
   port: 8080
+  version: 3            # interfaccia con stile HA, la più completa
+  local: true           # JS/CSS serviti dall'ESP: funziona SENZA internet (utile in AP)
+  include_internal: false
+  log: true             # mostra i log live nella pagina web
+  auth:
+    type: digest        # password mai in chiaro sulla rete
+    username: carusiov
+    password: Ruoppolo-12
+  sorting_groups:
+    - id: grp_rele
+      name: "Relè"
+      sorting_weight: 10
+    - id: grp_pulsanti
+      name: "Pulsanti"
+      sorting_weight: 20
+    - id: grp_diag
+      name: "Diagnostica"
+      sorting_weight: 30
+
+# ---- OTA via web (carichi firmware.bin dal browser, protetto da auth) ----
+ota:
+  - platform: esphome
+    password: Alesus&Chiara1997!
+  - platform: web_server
+
 
 captive_portal:
 
 wifi:
   ssid: FASTWEB-CASA
   password: AlessioChiara
-  
+
   power_save_mode: none
   fast_connect: true
 
@@ -43,57 +90,96 @@ wifi:
     ssid: "${friendly} Wifi"
     password: "admin123"
 
-  #use_address: 192.168.1.58
+  #use_address: 192.168.1.235
 
-  # (opzionale) potenza massima Wi‑Fi per stabilità in ambienti difficili
+  # (opzionale) potenza massima Wi-Fi per stabilità in ambienti difficili
   # output_power: 20.5dB
 
 # ---- Diagnostica utile per capire se è rete o firmware ----
 sensor:
   - platform: wifi_signal
     name: "${friendly} WiFi RSSI"
+    icon: mdi:wifi
     update_interval: 60s
+    entity_category: diagnostic
 
   - platform: uptime
+    id: uptime_sec
     name: "${friendly} Uptime"
-   
+    icon: mdi:timer-outline
+    entity_category: diagnostic
+    update_interval: 60s  
+
   - platform: internal_temperature
     name: "${friendly} ESP Temperature"
- 
+    icon: mdi:thermometer
+    entity_category: diagnostic
+
+  - platform: template
+    name: "${friendly} Boot Count"
+    id: boot_count_sensor
+    accuracy_decimals: 0
+    icon: mdi:counter
+    entity_category: diagnostic
+    update_interval: never
 
 text_sensor:
   - platform: wifi_info
     ip_address:
       name: "${friendly} IP"
+      icon: mdi:ip-network
+      entity_category: diagnostic
     ssid:
-      name: "${friendly} SSID" 
+      name: "${friendly} SSID"
+      icon: mdi:access-point-network
+      entity_category: diagnostic
     mac_address:
       name: "${friendly} MAC"
-  
+      icon: mdi:network-outline
+      entity_category: diagnostic
+
+  # ---- Uptime leggibile (es. "1d 3h 12m") ----
+  - platform: template
+    name: "${friendly} Uptime (leggibile)"
+    icon: mdi:clock-outline
+    entity_category: diagnostic
+    update_interval: 60s
+    lambda: |-
+      int s = id(uptime_sec).state;
+      int d = s / 86400; s %= 86400;
+      int h = s / 3600;  s %= 3600;
+      int m = s / 60;
+      char buf[32];
+      snprintf(buf, sizeof(buf), "%dd %dh %dm", d, h, m);
+      return {std::string(buf)};
+
   - platform: template
     name: "${friendly} Firmware Version"
+    id: fw_version_txt
     icon: mdi:tag
+    entity_category: diagnostic
     update_interval: never
-    lambda: |-
-      return {"${fw_version}"};
-  
+
   - platform: template
     name: "${friendly} Firmware Author"
+    id: fw_author_txt
     icon: mdi:account
+    entity_category: diagnostic
     update_interval: never
-    lambda: |-
-      return {"Alessio Carusio"};
 
   - platform: template
     name: "${friendly} Firmware Notes"
+    id: fw_notes_txt
     icon: mdi:note-text
+    entity_category: diagnostic
     update_interval: never
-    lambda: |-
-      return {"ESP32 + MCP23S17, 8 relays, 8 buttons"};
-    
-  
-    
-  
+
+button:
+  - platform: restart
+    name: "${friendly} Restart"
+    icon: mdi:restart
+    entity_category: config
+    web_server: { sorting_group_id: grp_diag }
 
 # ─── SPI + MCP23S17 ─────────────────────────────────────
 spi:
@@ -138,52 +224,84 @@ switch:
   - platform: output
     name: "Relay 1"
     id: relay1
+    icon: mdi:light-switch
     output: relay1_out
     restore_mode: RESTORE_DEFAULT_OFF
+    web_server:
+      sorting_group_id: grp_rele
+      sorting_weight: 10
   - platform: output
     name: "Relay 2"
     id: relay2
+    icon: mdi:light-switch
     output: relay2_out
     restore_mode: RESTORE_DEFAULT_OFF
+    web_server:
+      sorting_group_id: grp_rele
+      sorting_weight: 20
   - platform: output
     name: "Relay 3"
     id: relay3
+    icon: mdi:light-switch
     output: relay3_out
     restore_mode: RESTORE_DEFAULT_OFF
+    web_server:
+      sorting_group_id: grp_rele
+      sorting_weight: 30
   - platform: output
     name: "Relay 4"
     id: relay4
+    icon: mdi:light-switch
     output: relay4_out
     restore_mode: RESTORE_DEFAULT_OFF
+    web_server:
+      sorting_group_id: grp_rele
+      sorting_weight: 40
   - platform: output
     name: "Relay 5"
     id: relay5
+    icon: mdi:light-switch
     output: relay5_out
     restore_mode: RESTORE_DEFAULT_OFF
+    web_server:
+      sorting_group_id: grp_rele
+      sorting_weight: 50
   - platform: output
     name: "Relay 6"
     id: relay6
+    icon: mdi:light-switch
     output: relay6_out
     restore_mode: RESTORE_DEFAULT_OFF
+    web_server:
+      sorting_group_id: grp_rele
+      sorting_weight: 60
   - platform: output
     name: "Relay 7"
     id: relay7
+    icon: mdi:light-switch
     output: relay7_out
     restore_mode: RESTORE_DEFAULT_OFF
+    web_server:
+      sorting_group_id: grp_rele
+      sorting_weight: 70
   - platform: output
     name: "Relay 8"
     id: relay8
+    icon: mdi:light-switch
     output: relay8_out
     restore_mode: RESTORE_DEFAULT_OFF
+    web_server:
+      sorting_group_id: grp_rele
+      sorting_weight: 80
 
 # ─── PULSANTI (GPA0..GPA7 → 0..7) ────────────────────────
-# Nota: su expander (MCP) gli interrupt “interni” dell’ESP non si applicano come per GPIO locali.
-# I filtri servono a stabilizzare il segnale (debounce). [6](https://esphome.io/components/binary_sensor/gpio/)[7](https://www.ncnynl.com/docs/en/esphome/components/binary_sensor/gpio.html)
+# Nota: su expander (MCP) gli interrupt "interni" dell'ESP non si applicano come per GPIO locali.
+# I filtri servono a stabilizzare il segnale (debounce).
 binary_sensor:
-  
+
   - platform: status
     name: "${friendly} Online"
-
+    icon: mdi:lan-connect
 
   - platform: gpio
     name: "Pulsante 1"
@@ -193,6 +311,9 @@ binary_sensor:
       - delayed_off: 40ms
     on_press:
       - switch.toggle: relay1
+    web_server:  
+      sorting_group_id: grp_pulsanti
+      sorting_weight: 10
 
   - platform: gpio
     name: "Pulsante 2"
@@ -202,6 +323,9 @@ binary_sensor:
       - delayed_off: 40ms
     on_press:
       - switch.toggle: relay2
+    web_server:  
+      sorting_group_id: grp_pulsanti
+      sorting_weight: 20
 
   - platform: gpio
     name: "Pulsante 3"
@@ -211,6 +335,9 @@ binary_sensor:
       - delayed_off: 40ms
     on_press:
       - switch.toggle: relay3
+    web_server:  
+      sorting_group_id: grp_pulsanti
+      sorting_weight: 30
 
   - platform: gpio
     name: "Pulsante 4"
@@ -220,6 +347,9 @@ binary_sensor:
       - delayed_off: 40ms
     on_press:
       - switch.toggle: relay4
+    web_server:  
+      sorting_group_id: grp_pulsanti
+      sorting_weight: 40
 
   - platform: gpio
     name: "Pulsante 5"
@@ -229,6 +359,9 @@ binary_sensor:
       - delayed_off: 40ms
     on_press:
       - switch.toggle: relay5
+    web_server:  
+      sorting_group_id: grp_pulsanti
+      sorting_weight: 50
 
   - platform: gpio
     name: "Pulsante 6"
@@ -238,6 +371,9 @@ binary_sensor:
       - delayed_off: 40ms
     on_press:
       - switch.toggle: relay6
+    web_server:  
+      sorting_group_id: grp_pulsanti
+      sorting_weight: 60
 
   - platform: gpio
     name: "Pulsante 7"
@@ -247,6 +383,9 @@ binary_sensor:
       - delayed_off: 40ms
     on_press:
       - switch.toggle: relay7
+    web_server:  
+      sorting_group_id: grp_pulsanti
+      sorting_weight: 70
 
   - platform: gpio
     name: "Pulsante 8"
@@ -256,3 +395,6 @@ binary_sensor:
       - delayed_off: 40ms
     on_press:
       - switch.toggle: relay8
+    web_server:  
+      sorting_group_id: grp_pulsanti
+      sorting_weight: 80

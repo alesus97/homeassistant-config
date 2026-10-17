@@ -1,0 +1,126 @@
+####################################################
+#                                                  #
+#                    TEMPLATES                     #
+#                                                  #
+####################################################
+
+- sensor:
+    # ---------- Golf 8 ----------
+    - name: "Golf 8 km medi mensili"
+      unique_id: golf_8_km_medi_mensili
+      unit_of_measurement: "km/mese"
+      icon: mdi:chart-line
+      availability: >
+        {{ is_number(states('sensor.garage_golf_8_contachilometri')) }}
+      state: >
+        {% set data_inizio = '2026-09-28' %}
+        {% set km_iniziali = 12363 %}
+        {% set km_attuali = states('sensor.garage_golf_8_contachilometri') | float %}
+        {% set giorni = (now().date() - as_datetime(data_inizio).date()).days %}
+        {% set mesi = giorni / 30.4375 %}
+        {{ ((km_attuali - km_iniziali) / mesi) | round(0)
+           if mesi > 0 and km_attuali >= km_iniziali else 0 }}
+
+    # ---------- Costi energia ----------
+    - name: "Spina 1 Costo Oggi"
+      unit_of_measurement: "€"
+      state: >
+        {{ (states('sensor.spina1_energy_today') | float(0) * 0.25) | round(2) }}
+
+    - name: "Spina 2 Costo Oggi"
+      unit_of_measurement: "€"
+      state: >
+        {{ (states('sensor.spina2_energy_today') | float(0) * 0.25) | round(2) }}
+
+    # ---------- Firmware Tasmota ----------
+    - name: "Spina1 Firmware Clean"
+      unique_id: spina1_firmware_clean
+      state: >
+        {{ states('sensor.spina1_firmware_version') | replace('(release-tasmota)', '') | trim }}
+
+    - name: "Spina2 Firmware Clean"
+      unique_id: spina2_firmware_clean
+      state: >
+        {{ states('sensor.spina2_firmware_version') | replace('(release-tasmota)', '') | trim }}
+
+    - name: "LuceCucina Firmware Clean"
+      unique_id: luce_cucina_firmware_clean
+      state: >
+        {{ states('sensor.luce_cucina_firmware_version') | replace('(release-tasmota)', '') | trim }}
+
+    - name: "LuceCameraAlessio Firmware Clean"
+      unique_id: luce_camera_alessio_firmware_clean
+      state: >
+        {{ states('sensor.luce_camera_alessio_firmware_version') | replace('(release-tasmota)', '') | trim }}
+
+    - name: "LuceCorridoio Firmware Clean"
+      unique_id: luce_corridoio_firmware_clean
+      state: >
+        {{ states('sensor.luce_corridoio_firmware_version') | replace('(release-tasmota)', '') | trim }}
+
+    - name: "LuceSoggiorno1 Firmware Clean"
+      unique_id: lucesoggiorno1_firmware_clean
+      state: >
+        {{ states('sensor.lucesoggiorno1_firmware_version') | replace('(release-tasmota)', '') | trim }}
+
+    - name: "LuceSoggiorno2 Firmware Clean"
+      unique_id: lucesoggiorno2_firmware_clean
+      state: >
+        {{ states('sensor.lucesoggiorno2_firmware_version') | replace('(release-tasmota)', '') | trim }}
+
+    - name: "Riscaldamento Firmware Clean"
+      unique_id: riscaldamento_firmware_clean
+      state: >
+        {{ states('sensor.riscaldamento_firmware_version') | replace('(release-tasmota)', '') | trim }}
+
+    - name: "Tapparella Camera Alessio Firmware Clean"
+      unique_id: tapparella_camera_alessio_firmware_clean
+      state: >
+        {{ states('sensor.tapparella_camera_alessio_firmware_version') | replace('(release-tasmota)', '') | trim }}
+
+- binary_sensor:
+    - name: "Tasmota Aggiornamento Disponibile"
+      unique_id: tasmota_update_available
+      state: >
+        {% set latest = states('sensor.tasmota_latest_version') %}
+        {% if latest in ['unknown', 'unavailable', 'none', ''] %}
+          false
+        {% else %}
+          {% set lp = latest.split('.') %}
+          {% set lat_num = (lp[0] | int(0)) * 1000000 + (lp[1] | int(0)) * 1000 + (lp[2] | int(0) if lp | length > 2 else 0) %}
+          {% set ns = namespace(outdated=false) %}
+          {% set fws = states.sensor
+            | selectattr('entity_id', 'search', '_firmware_clean')
+            | list %}
+          {% for s in fws %}
+            {% set v = s.state %}
+            {% if v not in ['unknown', 'unavailable', 'none', ''] %}
+              {% set p = v.split('.') %}
+              {% set patch = p[2] | int(0) if p | length > 2 else 0 %}
+              {% set cur_num = (p[0] | int(0)) * 1000000 + (p[1] | int(0)) * 1000 + patch %}
+              {% if cur_num < lat_num %}
+                {% set ns.outdated = true %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          {{ ns.outdated }}
+        {% endif %}
+      icon: >
+        {{ 'mdi:package-up' if is_state('binary_sensor.tasmota_aggiornamento_disponibile', 'on') else 'mdi:package-variant-closed-check' }}
+
+- trigger:
+    - trigger: event
+      event_type: golf_8_parcheggio
+  sensor:
+    - name: "Golf 8 parcheggio"
+      unique_id: golf_8_parcheggio
+      icon: mdi:car
+      device_class: timestamp
+      state: "{{ now().isoformat() }}"
+      attributes:
+        latitude: "{{ trigger.event.data.latitude }}"
+        longitude: "{{ trigger.event.data.longitude }}"
+        gps_accuracy: "{{ trigger.event.data.accuracy }}"
+        indirizzo: "{{ trigger.event.data.indirizzo }}"
+        maps_url: >
+          https://www.google.com/maps/search/?api=1&query={{ trigger.event.data.latitude }},{{ trigger.event.data.longitude }}
