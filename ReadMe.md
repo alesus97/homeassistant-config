@@ -6,16 +6,128 @@
 [![Home Assistant Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/alesus97/homeassistant-config/main/.ha_run.lock&query=$.ha_version&label=Home%20Assistant&color=41BDF5&logo=home-assistant&style=for-the-badge)](https://www.home-assistant.io/)
 # Devices
 
+Inventory from the Home Assistant device registry, grouped by manufacturer, model and integration.
+Disabled entries are included. Personal names and device identifiers are not published.
+Devices configured only through YAML or not registered in Home Assistant cannot be inferred.
 
-| Device  | Image|Quantity | Connection | Home Assistant | Notes |
-| -------------| ------ | :---: | ------------- | ------------- | ------------- |
-| [Sonoff Mini](https://amzn.to/2HlmcED) | ![](https://i.ibb.co/rd2Bb1L/41-WVzq-Dw7-TL-AC-SX425.jpg) | 6 | Wi-Fi | [MQTT]| [DIY](https://tasmota.github.io/docs/Sonoff-DIY/)  jumper [Tasmota] flashed|
-| [Sonoff Dual](https://amzn.to/2UIeJCw) | ![](https://i.ibb.co/Dw1w9yz/Sonoff-Dual.jpg) |2 | Wi-Fi| [MQTT]| Hardware [Tasmota] flashed|
-| [Blitzwolf BW-SHP2](https://amzn.to/336IQIy) | ![](https://i.ibb.co/2sbbsmy/Blitzwolf-BW-SHP2.jpg) |2 | Wi-Fi| [MQTT]| [Tasmota] flashed with [tuya-convert](https://github.com/ct-Open-Source/tuya-convert)|
-| [Wifi RGB Controller](https://amzn.to/397N1Yt) | ![](https://i.ibb.co/P5f90mg/rgb-Controller.jpg) | 2 | Wi-Fi| [Flux Led](https://www.home-assistant.io/integrations/flux_led/) | Led strip RGB controller|
-| [Xiaomi Aqara Multisensor](https://amzn.to/35N2JWE) |![](https://i.ibb.co/hskTfq3/aqara-Multisensor.jpg) | 5 | Zigbee| [deConz]| Temperature, humidity, pressure and battery sensor|
-| [Broadlink RM3Mini](https://amzn.to/2IW48kU) |![](https://i.ibb.co/6Z01sk1/Broadlink-RM3-Mini.jpg) | 1 | Wi-Fi| [Broadlink]| Universal infrared remote|
-| [Conbee II](https://amzn.to/2IW48kU) |![](https://i.ibb.co/Hzpr7Ph/conbee2-aquacolor2.jpg) | 1 | USB| [deConz] | USB Zigbee gateway|
+Total: **143** registered entries.
+
+### Devices (51)
+
+| Manufacturer | Model | Quantity | Disabled | Home Assistant Integration |
+| ------------ | ----- | -------- | -------- | -------------------------- |
+| alps | A6_series | 1 | 0 | mobile_app |
+| Amazon | Alexa Gear | 1 | 0 | alexa_media |
+| Amazon | Alexa Mobile Voice iOS | 1 | 0 | alexa_media |
+| Amazon | Echo (Gen3) | 1 | 0 | alexa_media |
+| Amazon | Echo Dot (Gen3) | 2 | 0 | alexa_media |
+| Amazon | Fire TV Stick | 1 | 0 | alexa_media |
+| Amazon | Fire TV Stick 4K (Gen3) | 1 | 0 | alexa_media |
+| Amazon | FIRE_TV A1Q6UGEXJZWJQ0 | 1 | 0 | alexa_media |
+| Amazon | Speaker Group | 1 | 0 | alexa_media |
+| Amazon | Ultimate Alexa App | 1 | 1 | alexa_media |
+| Amazon | UNKNOWN AWDGMLZTZV4X8 | 1 | 1 | alexa_media |
+| Apple | iPhone15,2 | 1 | 0 | mobile_app |
+| Apple | MacBookPro15,1 | 1 | 0 | mobile_app |
+| Broadlink | RM mini 3 | 1 | 0 | broadlink |
+| Ecovacs | DEEBOT T50 PRO OMNI Gen2 | 1 | 0 | ecovacs |
+| Espressif | esp32dev | 1 | 0 | esphome |
+| Freebox | Freebox Server | 1 | 0 | upnp |
+| LGE | 2GLRETRECF_2F (DEVICE_REFRIGERATOR) | 1 | 0 | lg_thinq |
+| LUMI | lumi.weather | 4 | 0 | deconz |
+| Nanoleaf | NL42 | 1 | 0 | nanoleaf |
+| Node-RED | Not available | 1 | 0 | nodered |
+| Not available | Android TV | 1 | 1 | androidtv |
+| Not available | Node | 1 | 0 | proxmoxve |
+| Not available | Not available | 1 | 0 | cpuspeed |
+| Philips | 1_32PFS5803/12 | 1 | 0 | philips_js |
+| Philips | PHDL00 | 1 | 0 | deconz |
+| Pi-hole | Not available | 1 | 0 | pi_hole |
+| Playnite | Not available | 1 | 0 | mqtt |
+| Samsung | SCX-3400 Series | 1 | 1 | syncthru |
+| samsung | SM-S721B | 1 | 0 | mobile_app |
+| SONOFF | MINI | 1 | 0 | sonoff |
+| Tasmota | BlitzWolf SPH2 | 2 | 0 | tasmota |
+| Tasmota | Generic | 1 | 0 | tasmota |
+| Tasmota | Sonoff Dual R2 | 2 | 0 | tasmota |
+| Tasmota | Sonoff Mini | 4 | 0 | tasmota |
+| TCL | Split AC | 1 | 0 | tcl_home_unofficial |
+| TP-Link | L530 | 1 | 0 | tplink |
+| Vladimir Cvetić | Playnite Web MQTT | 1 | 0 | playnite_web_mqtt |
+| Volkswagen | Volkswagen | 1 | 0 | vag_connect |
+| Zengge | Controller Dimmable (0x41) | 2 | 0 | flux_led |
+| Zengge | Controller RGB (0x33) | 1 | 0 | flux_led |
+
+### Services / Virtual Devices (92)
+
+| Manufacturer | Model | Quantity | Disabled | Home Assistant Integration |
+| ------------ | ----- | -------- | -------- | -------------------------- |
+| alandtse, keatontaylor | integration | 1 | 0 | hacs |
+| AlexxIT | integration | 1 | 0 | hacs |
+| andrew-codechimp | integration | 1 | 0 | hacs |
+| artem-sedykh | plugin | 1 | 0 | hacs |
+| azuwis | plugin | 1 | 0 | hacs |
+| benct | plugin | 1 | 0 | hacs |
+| bramkragten | plugin | 2 | 0 | hacs |
+| Clooos | plugin | 1 | 0 | hacs |
+| custom-cards | plugin | 3 | 0 | hacs |
+| cvele | integration | 1 | 0 | hacs |
+| denysdovhan | plugin | 1 | 0 | hacs |
+| DNS | 4.0.4 | 1 | 0 | dnsip |
+| dresden elektronik | deCONZ | 1 | 0 | deconz |
+| Drivvo | None Golf 8 | 1 | 0 | drivvo |
+| elax46 | plugin | 1 | 0 | hacs |
+| ESPHome | Home Assistant App | 1 | 0 | hassio |
+| GitHub | Not available | 1 | 0 | github |
+| Google | Google Translate TTS | 1 | 0 | google_translate |
+| hacs.xyz | Not available | 1 | 0 | hacs |
+| Home Assistant | Home Assistant Backup | 1 | 0 | backup |
+| Home Assistant | Home Assistant Core | 1 | 0 | hassio |
+| Home Assistant | Home Assistant Host | 1 | 0 | hassio |
+| Home Assistant | Home Assistant Operating System | 1 | 0 | hassio |
+| Home Assistant | Home Assistant Supervisor | 1 | 0 | hassio |
+| Home Assistant | HomeBridge | 1 | 0 | homekit |
+| Home Assistant | Not available | 1 | 0 | version |
+| Home Assistant Community Apps | Home Assistant App | 5 | 0 | hassio |
+| Home Assistant Community Store | Home Assistant App | 1 | 0 | hassio |
+| Home Assistant Google Drive Backup Repository | Home Assistant App | 1 | 0 | hassio |
+| homeassistant-extras | plugin | 1 | 0 | hacs |
+| hudsonbrendon, dougiteixeira | integration | 1 | 0 | hacs |
+| iantrich | plugin | 1 | 0 | hacs |
+| its-me-prash | integration | 1 | 0 | hacs |
+| jaym25, lukas-hetzenecker, postlund | integration | 1 | 0 | hacs |
+| JurajNyiri | integration | 1 | 0 | hacs |
+| kalkih | plugin | 2 | 0 | hacs |
+| maxwroc | plugin | 1 | 0 | hacs |
+| menahishayan, lnlyssg, HoussamOtarid, enzofrnt | integration | 1 | 0 | hacs |
+| Met.no | Forecast | 1 | 0 | met |
+| nemesa | integration | 1 | 0 | hacs |
+| NemesisRE | plugin | 1 | 0 | hacs |
+| Nezz | theme | 1 | 0 | hacs |
+| nielsfaber | plugin | 1 | 0 | hacs |
+| Not available | Container | 8 | 0 | proxmoxve |
+| Not available | Not available | 1 | 0 | cert_expiry |
+| Not available | Not available | 1 | 0 | filesize |
+| Not available | Not available | 1 | 0 | season |
+| Not available | Not available | 1 | 0 | sun |
+| Not available | Not available | 1 | 0 | uptime |
+| Not available | Storage | 2 | 0 | proxmoxve |
+| Not available | VM | 1 | 0 | proxmoxve |
+| ofekashery | plugin | 1 | 0 | hacs |
+| Official apps | Home Assistant App | 8 | 0 | hassio |
+| piitaya | plugin | 1 | 0 | hacs |
+| robinostlund | integration | 1 | 0 | hacs |
+| RomRider | plugin | 1 | 0 | hacs |
+| smartHomeHub | integration | 1 | 0 | hacs |
+| Spotify AB | Spotify premium | 1 | 0 | spotify |
+| System Monitor | Not available | 1 | 0 | systemmonitor |
+| TasmoBackup Repository | Home Assistant App | 1 | 0 | hassio |
+| thomasloven | plugin | 4 | 0 | hacs |
+| ualex73 | integration | 1 | 0 | hacs |
+| usernein | plugin | 1 | 0 | hacs |
+| VW Group | Not available | 1 | 0 | vag_connect |
+| wassy92x | plugin | 1 | 0 | hacs |
+| zachowj | integration | 1 | 0 | hacs |
 
 
 # New Features!
