@@ -6,39 +6,36 @@
 [![Home Assistant Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/alesus97/homeassistant-config/main/.ha_run.lock&query=$.ha_version&label=Home%20Assistant&color=41BDF5&logo=home-assistant&style=for-the-badge)](https://www.home-assistant.io/)
 # Devices
 
-Hardware grouped by model. Quantities come from the Home Assistant device registry; software and virtual services are excluded.
+Hardware grouped by product family. Quantities come from the Home Assistant device registry; software and virtual services are excluded.
+Images are product photos where available, otherwise integration logos.
 
-| Device | Image | Quantity | Home Assistant |
-| ------ | ----- | :------: | -------------- |
-| alps A6_series | - | 1 | mobile_app |
-| Amazon Echo (Gen3) | - | 1 | alexa_media |
-| Amazon Echo Dot (Gen3) | - | 2 | alexa_media |
-| Amazon Fire TV Stick | - | 1 | alexa_media |
-| Amazon Fire TV Stick 4K (Gen3) | - | 1 | alexa_media |
-| Amazon FIRE_TV A1Q6UGEXJZWJQ0 | - | 1 | alexa_media |
-| Android TV | - | 1 | androidtv |
-| Apple iPhone15,2 | - | 1 | mobile_app |
-| Apple MacBookPro15,1 | - | 1 | mobile_app |
-| Blitzwolf BW-SHP2 | ![Blitzwolf BW-SHP2](https://i.ibb.co/2sbbsmy/Blitzwolf-BW-SHP2.jpg) | 2 | tasmota |
-| Broadlink RM3 Mini | ![Broadlink RM3 Mini](https://i.ibb.co/6Z01sk1/Broadlink-RM3-Mini.jpg) | 1 | broadlink |
-| Ecovacs DEEBOT T50 PRO OMNI Gen2 | - | 1 | ecovacs |
-| Espressif esp32dev | - | 1 | esphome |
-| Freebox Freebox Server | - | 1 | upnp |
-| LGE 2GLRETRECF_2F (DEVICE_REFRIGERATOR) | - | 1 | lg_thinq |
-| Nanoleaf NL42 | - | 1 | nanoleaf |
-| Philips 1_32PFS5803/12 | - | 1 | philips_js |
-| Philips PHDL00 | - | 1 | deconz |
-| Samsung SCX-3400 Series | - | 1 | syncthru |
-| samsung SM-S721B | - | 1 | mobile_app |
-| Sonoff Dual R2 | ![Sonoff Dual R2](https://i.ibb.co/Dw1w9yz/Sonoff-Dual.jpg) | 2 | tasmota |
-| Sonoff Mini | ![Sonoff Mini](https://i.ibb.co/rd2Bb1L/41-WVzq-Dw7-TL-AC-SX425.jpg) | 5 | sonoff, tasmota |
-| Tasmota Generic | - | 1 | tasmota |
-| TCL Split AC | - | 1 | tcl_home_unofficial |
-| TP-Link L530 | - | 1 | tplink |
-| Volkswagen Volkswagen | - | 1 | vag_connect |
-| Xiaomi Aqara Multisensor | ![Xiaomi Aqara Multisensor](https://i.ibb.co/hskTfq3/aqara-Multisensor.jpg) | 4 | deconz |
-| Zengge Controller Dimmable (0x41) | - | 2 | flux_led |
-| Zengge Controller RGB (0x33) | - | 1 | flux_led |
+| Device | Image | Quantity | Home Assistant | Models |
+| ------ | ----- | :------: | -------------- | ------ |
+| alps A6_series | <img src="https://brands.home-assistant.io/_/mobile_app/icon.png" alt="mobile_app integration logo" width="64" height="64"> | 1 | mobile_app | A6_series |
+| Amazon Echo | <img src="https://brands.home-assistant.io/_/alexa_media/icon.png" alt="alexa_media integration logo" width="64" height="64"> | 3 | alexa_media | Echo (Gen3), Echo Dot (Gen3) |
+| Amazon Fire TV | <img src="https://brands.home-assistant.io/_/alexa_media/icon.png" alt="alexa_media integration logo" width="64" height="64"> | 3 | alexa_media | Fire TV Stick, Fire TV Stick 4K (Gen3), FIRE_TV A1Q6UGEXJZWJQ0 |
+| Android TV | <img src="https://brands.home-assistant.io/_/androidtv/icon.png" alt="androidtv integration logo" width="64" height="64"> | 1 | androidtv | Android TV |
+| Apple iPhone | <img src="https://brands.home-assistant.io/_/mobile_app/icon.png" alt="mobile_app integration logo" width="64" height="64"> | 1 | mobile_app | iPhone15,2 |
+| Apple MacBook Pro | <img src="https://brands.home-assistant.io/_/mobile_app/icon.png" alt="mobile_app integration logo" width="64" height="64"> | 1 | mobile_app | MacBookPro15,1 |
+| Blitzwolf BW-SHP2 | <img src="https://i.ibb.co/2sbbsmy/Blitzwolf-BW-SHP2.jpg" alt="Blitzwolf BW-SHP2" width="64" height="64"> | 2 | tasmota | BlitzWolf SPH2 |
+| Broadlink RM3 Mini | <img src="https://i.ibb.co/6Z01sk1/Broadlink-RM3-Mini.jpg" alt="Broadlink RM3 Mini" width="64" height="64"> | 1 | broadlink | RM mini 3 |
+| Ecovacs DEEBOT T50 PRO OMNI Gen2 | <img src="https://brands.home-assistant.io/_/ecovacs/icon.png" alt="ecovacs integration logo" width="64" height="64"> | 1 | ecovacs | DEEBOT T50 PRO OMNI Gen2 |
+| Espressif esp32dev | <img src="https://brands.home-assistant.io/_/esphome/icon.png" alt="esphome integration logo" width="64" height="64"> | 1 | esphome | esp32dev |
+| Freebox Freebox Server | <img src="https://brands.home-assistant.io/_/upnp/icon.png" alt="upnp integration logo" width="64" height="64"> | 1 | upnp | Freebox Server |
+| LGE 2GLRETRECF_2F (DEVICE_REFRIGERATOR) | <img src="https://brands.home-assistant.io/_/lg_thinq/icon.png" alt="lg_thinq integration logo" width="64" height="64"> | 1 | lg_thinq | 2GLRETRECF_2F (DEVICE_REFRIGERATOR) |
+| Nanoleaf NL42 | <img src="https://brands.home-assistant.io/_/nanoleaf/icon.png" alt="nanoleaf integration logo" width="64" height="64"> | 1 | nanoleaf | NL42 |
+| Philips 1_32PFS5803/12 | <img src="https://brands.home-assistant.io/_/philips_js/icon.png" alt="philips_js integration logo" width="64" height="64"> | 1 | philips_js | 1_32PFS5803/12 |
+| Philips PHDL00 | <img src="https://brands.home-assistant.io/_/deconz/icon.png" alt="deconz integration logo" width="64" height="64"> | 1 | deconz | PHDL00 |
+| Samsung SCX-3400 Series | <img src="https://brands.home-assistant.io/_/syncthru/icon.png" alt="syncthru integration logo" width="64" height="64"> | 1 | syncthru | SCX-3400 Series |
+| samsung SM-S721B | <img src="https://brands.home-assistant.io/_/mobile_app/icon.png" alt="mobile_app integration logo" width="64" height="64"> | 1 | mobile_app | SM-S721B |
+| Sonoff Dual R2 | <img src="https://i.ibb.co/Dw1w9yz/Sonoff-Dual.jpg" alt="Sonoff Dual R2" width="64" height="64"> | 2 | tasmota | Sonoff Dual R2 |
+| Sonoff Mini | <img src="https://i.ibb.co/rd2Bb1L/41-WVzq-Dw7-TL-AC-SX425.jpg" alt="Sonoff Mini" width="64" height="64"> | 5 | sonoff, tasmota | MINI, Sonoff Mini |
+| Tasmota Generic | <img src="https://brands.home-assistant.io/_/tasmota/icon.png" alt="tasmota integration logo" width="64" height="64"> | 1 | tasmota | Generic |
+| TCL Split AC | <img src="https://brands.home-assistant.io/_/tcl_home_unofficial/icon.png" alt="tcl_home_unofficial integration logo" width="64" height="64"> | 1 | tcl_home_unofficial | Split AC |
+| TP-Link L530 | <img src="https://brands.home-assistant.io/_/tplink/icon.png" alt="tplink integration logo" width="64" height="64"> | 1 | tplink | L530 |
+| Volkswagen Volkswagen | <img src="https://brands.home-assistant.io/_/vag_connect/icon.png" alt="vag_connect integration logo" width="64" height="64"> | 1 | vag_connect | Volkswagen |
+| Wi-Fi LED Controllers | <img src="https://brands.home-assistant.io/_/flux_led/icon.png" alt="flux_led integration logo" width="64" height="64"> | 3 | flux_led | Controller Dimmable (0x41), Controller RGB (0x33) |
+| Xiaomi Aqara Multisensor | <img src="https://i.ibb.co/hskTfq3/aqara-Multisensor.jpg" alt="Xiaomi Aqara Multisensor" width="64" height="64"> | 4 | deconz | lumi.weather |
 
 
 # New Features!
