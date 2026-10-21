@@ -20,31 +20,100 @@
 
 # New Features!
 
+<!-- readme-updater:features:start -->
+Recent configuration changes (commit dates and subjects):
+
+- **2026-10-17**: Aggiornato la versione di HA a 2026.10.1, modificato file di configurazione e aggiunti nuovi script e template per la gestione delle scadenze del Golf 8.
+- **2026-08-17**: reinserita history
+- **2026-08-17**: Suddivisa configurazione in più file, rimossi file non utilizzati
+- **2026-08-11**: Aggiunti sensori di costo spine 1 e 2, aggiunti sensori di versione fw tasmota, aggiunto sensore temp cpu prelevata da proxmox. Aggiornata versione a 2026.8.1
+- **2025-12-28**: Aggiornata configurazione
+- **2024-12-29**: Corretto target_sensor climate, modificata soglia ban ip a 10
+- **2024-12-26**: Aggiornato HA
+- **2024-12-06**: first commit
+<!-- readme-updater:features:end -->
+
   - **16.11.2020**: ESP32 and DS18B20 MQTT Temperature 
   - **23.11.2020**: Startup sync automation (Lights, Covers and Climate)
- 
 
 # Integration & Addons
 
-In my comfiguration I use the following integrations
+Installed custom integrations and HACS resources. Built-in integrations share the Home Assistant Core version.
+Versions come from local manifests, HACS installed metadata and Supervisor, not upstream releases.
 
-| Plugin |Type| Source|Note| Github Repo |
-| ------|-----| --- |----| ------ |
-| Auto-entities |Frontend|[HACS] |Used to auto fill battery card | https://github.com/thomasloven/lovelace-auto-entities |
-| RGB Light Card |Frontend|[HACS]|Used to control RGB led strip with presets| https://github.com/bokub/rgb-light-card |
-| Button Card |Frontend|[HACS]|Nota| https://github.com/custom-cards/button-card |
-| Shutter Card |Frontend|[HACS]|Nota| https://github.com/Deejayfool/hass-shutter-card|
-| Mini Climate Card |Frontend|[HACS]|Nota| https://github.com/artem-sedykh/mini-climate-card |
-| Multiple Entity Row |Frontend|[HACS]|Nota| https://github.com/benct/lovelace-multiple-entity-row |
-| Battery Entity Row |Frontend|[HACS]|Nota| https://github.com/benct/lovelace-battery-entity-row |
-| Mini Media Player |Frontend|[HACS]|Nota| https://github.com/kalkih/mini-media-player |
-| Vertical Stack In Card |Frontend|[HACS]|Nota| https://github.com/ofekashery/vertical-stack-in-card |
-| Simple Thermostat |Frontend|[HACS]|Nota| https://github.com/nervetattoo/simple-thermostat |
-| Mini Graph Card |Frontend|[HACS]| Nota|https://github.com/kalkih/mini-graph-card |
-| SmartIR |Integration|[HACS]|Nota| https://github.com/smartHomeHub/SmartIR |
-| Alexa Media Player |Integration|[HACS]| Nota|https://github.com/custom-components/alexa_media_player |
-| Node-RED |Integration|[HACS]|Nota| https://github.com/zachowj/hass-node-red|
+| Plugin | Type | Source | Installed Version | Repository / Documentation |
+| ------ | ---- | ------ | ----------------- | -------------------------- |
+| Alexa Media Player | Integration | HACS | 5.17.1 | https://github.com/alandtse/alexa_media_player |
+| artem-sedykh/mini-climate-card | Frontend | HACS | v3.4.0 | https://github.com/artem-sedykh/mini-climate-card |
+| azuwis/zigbee2mqtt-networkmap | Frontend | HACS | v0.13.0 | https://github.com/azuwis/zigbee2mqtt-networkmap |
+| Battery Notes | Integration | HACS | 3.7.2 | https://github.com/andrew-codechimp/HA-Battery-Notes |
+| benct/lovelace-multiple-entity-row | Frontend | HACS | v4.13.0 | https://github.com/benct/lovelace-multiple-entity-row |
+| bramkragten/swipe-card | Frontend | HACS | v5.0.0 | https://github.com/bramkragten/swipe-card |
+| bramkragten/weather-card | Frontend | HACS | v1.5.0 | https://github.com/bramkragten/weather-card |
+| Clooos/Bubble-Card | Frontend | HACS | v3.4.2 | https://github.com/Clooos/Bubble-Card |
+| custom-cards/button-card | Frontend | HACS | v7.0.1 | https://github.com/custom-cards/button-card |
+| custom-cards/flex-table-card | Frontend | HACS | v1.5 | https://github.com/custom-cards/flex-table-card |
+| custom-cards/stack-in-card | Frontend | HACS | 0.2.0 | https://github.com/custom-cards/stack-in-card |
+| denysdovhan/vacuum-card | Frontend | HACS | v2.12.0 | https://github.com/denysdovhan/vacuum-card |
+| Drivvo | Integration | HACS | 3.1.0 | https://github.com/hudsonbrendon/HA-drivvo |
+| elax46/custom-brand-icons | Frontend | HACS | 2026.10.1 | https://github.com/elax46/custom-brand-icons |
+| HACS | Integration | HACS | 2.0.5 | https://github.com/hacs/integration |
+| HomeAssistant Cupertino Icons | Integration | HACS | 5.0.1 | https://github.com/menahishayan/HomeAssistant-Cupertino-Icons |
+| homeassistant-extras/pi-hole-card | Frontend | HACS | 0.29.0 | https://github.com/homeassistant-extras/pi-hole-card |
+| iantrich/config-template-card | Frontend | HACS | 1.3.6 | https://github.com/iantrich/config-template-card |
+| kalkih/mini-graph-card | Frontend | HACS | v0.13.0 | https://github.com/kalkih/mini-graph-card |
+| kalkih/mini-media-player | Frontend | HACS | v1.16.12 | https://github.com/kalkih/mini-media-player |
+| maxwroc/battery-state-card | Frontend | HACS | v4.2.0 | https://github.com/maxwroc/battery-state-card |
+| Monitor Docker | Integration | HACS | 1.20b3 | https://github.com/ualex73/monitor_docker |
+| NemesisRE/kiosk-mode | Frontend | HACS | v15.0.0 | https://github.com/NemesisRE/kiosk-mode |
+| Nezz/homeassistant-visionos-theme | Theme | HACS | 4.2.2 | https://github.com/Nezz/homeassistant-visionos-theme |
+| nielsfaber/scheduler-card | Frontend | HACS | v4.0.19 | https://github.com/nielsfaber/scheduler-card |
+| Node-RED Companion | Integration | HACS | 4.3.2 | https://github.com/zachowj/hass-node-red |
+| ofekashery/vertical-stack-in-card | Frontend | HACS | v1.1.4 | https://github.com/ofekashery/vertical-stack-in-card |
+| piitaya/lovelace-mushroom | Frontend | HACS | v5.2.3 | https://github.com/piitaya/lovelace-mushroom |
+| Playnite Web MQTT | Integration | HACS | 0.0.12 | https://github.com/cvele/playnite_web_mqtt |
+| Remote Home-Assistant | Integration | HACS | 4.6 | https://github.com/custom-components/remote_homeassistant |
+| RomRider/apexcharts-card | Frontend | HACS | v2.2.3 | https://github.com/RomRider/apexcharts-card |
+| SmartIR | Integration | HACS | 1.18.1 | https://github.com/smartHomeHub/SmartIR |
+| Sonoff | Integration | HACS | 3.13.2 | https://github.com/AlexxIT/SonoffLAN |
+| Tapo: Cameras Control | Integration | HACS | 7.2.8 | https://github.com/JurajNyiri/HomeAssistant-Tapo-Control |
+| TCL Home - Unofficial | Integration | HACS | 3.16.0 | https://github.com/nemesa/ha-tcl-home-unofficial-integration |
+| thomasloven/lovelace-auto-entities | Frontend | HACS | v1.16.1 | https://github.com/thomasloven/lovelace-auto-entities |
+| thomasloven/lovelace-card-mod | Frontend | HACS | v4.2.1 | https://github.com/thomasloven/lovelace-card-mod |
+| thomasloven/lovelace-layout-card | Frontend | HACS | v2.4.7 | https://github.com/thomasloven/lovelace-layout-card |
+| thomasloven/lovelace-template-entity-row | Frontend | HACS | v1.4.1 | https://github.com/thomasloven/lovelace-template-entity-row |
+| usernein/tailwindcss-template-card | Frontend | HACS | v3.1.1 | https://github.com/usernein/tailwindcss-template-card |
+| Volkswagen Connect | Integration | HACS | v5.5.1 | https://github.com/robinostlund/homeassistant-volkswagencarnet |
+| VW Group Connect | Integration | HACS | 5.1.1 | https://github.com/its-me-prash/vwgroup-connect-ha |
+| wassy92x/lovelace-digital-clock | Frontend | HACS | v1.2.4 | https://github.com/wassy92x/lovelace-digital-clock |
 
+### Add-ons
+
+<!-- readme-updater:addons:start -->
+
+| Plugin | Type | Source | Installed Version | Repository / Documentation |
+| ------ | ---- | ------ | ----------------- | -------------------------- |
+| Advanced SSH & Web Terminal | Add-on | Supervisor | 24.1.7 | https://github.com/hassio-addons/app-ssh |
+| deCONZ | Add-on | Supervisor | 8.8.0 | https://github.com/home-assistant/addons/tree/master/deconz |
+| Duck DNS | Add-on | Supervisor | 2.0.1 | https://github.com/home-assistant/addons/tree/master/duckdns |
+| ESPHome Device Builder | Add-on | Supervisor | 2026.10.0 | https://esphome.io/ |
+| Get HACS | Add-on | Supervisor | 1.3.1 | https://github.com/hacs/addons/tree/main/get |
+| Home Assistant Google Drive Backup | Add-on | Supervisor | 0.112.1 | https://github.com/sabeechen/hassio-google-drive-backup |
+| Let's Encrypt | Add-on | Supervisor | 6.5.0 | https://github.com/home-assistant/addons/tree/master/letsencrypt |
+| Mosquitto broker | Add-on | Supervisor | 7.1.2 | https://github.com/home-assistant/addons/tree/master/mosquitto |
+| NGINX Home Assistant SSL proxy | Add-on | Supervisor | 4.5.1 | https://github.com/home-assistant/addons/tree/master/nginx_proxy |
+| Node-RED | Add-on | Supervisor | 22.1.0 | https://github.com/hassio-addons/app-node-red |
+| RPC Shutdown | Add-on | Supervisor | 3.0 | https://github.com/home-assistant/addons/tree/master/rpc_shutdown |
+| Samba share | Add-on | Supervisor | 12.10.0 | https://github.com/home-assistant/addons/tree/master/samba |
+| SQLite Web | Add-on | Supervisor | 6.1.1 | https://github.com/hassio-addons/app-sqlite-web/tree/main/README.md |
+| Studio Code Server | Add-on | Supervisor | 7.2.0 | https://github.com/hassio-addons/app-vscode |
+| TasmoAdmin | Add-on | Supervisor | 0.34.0 | https://github.com/hassio-addons/app-tasmoadmin |
+| TasmoBackup | Add-on | Supervisor | 1.08.00 | https://github.com/danmed/TasmoBackupV1/ |
+| Terminal & SSH | Add-on | Supervisor | 10.5.0 | https://github.com/home-assistant/addons/tree/master/ssh |
+
+<!-- readme-updater:addons:end -->
+
+<!-- readme-updater:inventory ["| Alexa Media Player | Integration | HACS | 5.17.1 | https://github.com/alandtse/alexa_media_player |", "| artem-sedykh/mini-climate-card | Frontend | HACS | v3.4.0 | https://github.com/artem-sedykh/mini-climate-card |", "| azuwis/zigbee2mqtt-networkmap | Frontend | HACS | v0.13.0 | https://github.com/azuwis/zigbee2mqtt-networkmap |", "| Battery Notes | Integration | HACS | 3.7.2 | https://github.com/andrew-codechimp/HA-Battery-Notes |", "| benct/lovelace-multiple-entity-row | Frontend | HACS | v4.13.0 | https://github.com/benct/lovelace-multiple-entity-row |", "| bramkragten/swipe-card | Frontend | HACS | v5.0.0 | https://github.com/bramkragten/swipe-card |", "| bramkragten/weather-card | Frontend | HACS | v1.5.0 | https://github.com/bramkragten/weather-card |", "| Clooos/Bubble-Card | Frontend | HACS | v3.4.2 | https://github.com/Clooos/Bubble-Card |", "| custom-cards/button-card | Frontend | HACS | v7.0.1 | https://github.com/custom-cards/button-card |", "| custom-cards/flex-table-card | Frontend | HACS | v1.5 | https://github.com/custom-cards/flex-table-card |", "| custom-cards/stack-in-card | Frontend | HACS | 0.2.0 | https://github.com/custom-cards/stack-in-card |", "| denysdovhan/vacuum-card | Frontend | HACS | v2.12.0 | https://github.com/denysdovhan/vacuum-card |", "| Drivvo | Integration | HACS | 3.1.0 | https://github.com/hudsonbrendon/HA-drivvo |", "| elax46/custom-brand-icons | Frontend | HACS | 2026.10.1 | https://github.com/elax46/custom-brand-icons |", "| HACS | Integration | HACS | 2.0.5 | https://github.com/hacs/integration |", "| HomeAssistant Cupertino Icons | Integration | HACS | 5.0.1 | https://github.com/menahishayan/HomeAssistant-Cupertino-Icons |", "| homeassistant-extras/pi-hole-card | Frontend | HACS | 0.29.0 | https://github.com/homeassistant-extras/pi-hole-card |", "| iantrich/config-template-card | Frontend | HACS | 1.3.6 | https://github.com/iantrich/config-template-card |", "| kalkih/mini-graph-card | Frontend | HACS | v0.13.0 | https://github.com/kalkih/mini-graph-card |", "| kalkih/mini-media-player | Frontend | HACS | v1.16.12 | https://github.com/kalkih/mini-media-player |", "| maxwroc/battery-state-card | Frontend | HACS | v4.2.0 | https://github.com/maxwroc/battery-state-card |", "| Monitor Docker | Integration | HACS | 1.20b3 | https://github.com/ualex73/monitor_docker |", "| NemesisRE/kiosk-mode | Frontend | HACS | v15.0.0 | https://github.com/NemesisRE/kiosk-mode |", "| Nezz/homeassistant-visionos-theme | Theme | HACS | 4.2.2 | https://github.com/Nezz/homeassistant-visionos-theme |", "| nielsfaber/scheduler-card | Frontend | HACS | v4.0.19 | https://github.com/nielsfaber/scheduler-card |", "| Node-RED Companion | Integration | HACS | 4.3.2 | https://github.com/zachowj/hass-node-red |", "| ofekashery/vertical-stack-in-card | Frontend | HACS | v1.1.4 | https://github.com/ofekashery/vertical-stack-in-card |", "| piitaya/lovelace-mushroom | Frontend | HACS | v5.2.3 | https://github.com/piitaya/lovelace-mushroom |", "| Playnite Web MQTT | Integration | HACS | 0.0.12 | https://github.com/cvele/playnite_web_mqtt |", "| Remote Home-Assistant | Integration | HACS | 4.6 | https://github.com/custom-components/remote_homeassistant |", "| RomRider/apexcharts-card | Frontend | HACS | v2.2.3 | https://github.com/RomRider/apexcharts-card |", "| SmartIR | Integration | HACS | 1.18.1 | https://github.com/smartHomeHub/SmartIR |", "| Sonoff | Integration | HACS | 3.13.2 | https://github.com/AlexxIT/SonoffLAN |", "| Tapo: Cameras Control | Integration | HACS | 7.2.8 | https://github.com/JurajNyiri/HomeAssistant-Tapo-Control |", "| TCL Home - Unofficial | Integration | HACS | 3.16.0 | https://github.com/nemesa/ha-tcl-home-unofficial-integration |", "| thomasloven/lovelace-auto-entities | Frontend | HACS | v1.16.1 | https://github.com/thomasloven/lovelace-auto-entities |", "| thomasloven/lovelace-card-mod | Frontend | HACS | v4.2.1 | https://github.com/thomasloven/lovelace-card-mod |", "| thomasloven/lovelace-layout-card | Frontend | HACS | v2.4.7 | https://github.com/thomasloven/lovelace-layout-card |", "| thomasloven/lovelace-template-entity-row | Frontend | HACS | v1.4.1 | https://github.com/thomasloven/lovelace-template-entity-row |", "| usernein/tailwindcss-template-card | Frontend | HACS | v3.1.1 | https://github.com/usernein/tailwindcss-template-card |", "| Volkswagen Connect | Integration | HACS | v5.5.1 | https://github.com/robinostlund/homeassistant-volkswagencarnet |", "| VW Group Connect | Integration | HACS | 5.1.1 | https://github.com/its-me-prash/vwgroup-connect-ha |", "| wassy92x/lovelace-digital-clock | Frontend | HACS | v1.2.4 | https://github.com/wassy92x/lovelace-digital-clock |", "| Advanced SSH & Web Terminal | Add-on | Supervisor | 24.1.7 | https://github.com/hassio-addons/app-ssh |", "| deCONZ | Add-on | Supervisor | 8.8.0 | https://github.com/home-assistant/addons/tree/master/deconz |", "| Duck DNS | Add-on | Supervisor | 2.0.1 | https://github.com/home-assistant/addons/tree/master/duckdns |", "| ESPHome Device Builder | Add-on | Supervisor | 2026.10.0 | https://esphome.io/ |", "| Get HACS | Add-on | Supervisor | 1.3.1 | https://github.com/hacs/addons/tree/main/get |", "| Home Assistant Google Drive Backup | Add-on | Supervisor | 0.112.1 | https://github.com/sabeechen/hassio-google-drive-backup |", "| Let's Encrypt | Add-on | Supervisor | 6.5.0 | https://github.com/home-assistant/addons/tree/master/letsencrypt |", "| Mosquitto broker | Add-on | Supervisor | 7.1.2 | https://github.com/home-assistant/addons/tree/master/mosquitto |", "| NGINX Home Assistant SSL proxy | Add-on | Supervisor | 4.5.1 | https://github.com/home-assistant/addons/tree/master/nginx_proxy |", "| Node-RED | Add-on | Supervisor | 22.1.0 | https://github.com/hassio-addons/app-node-red |", "| RPC Shutdown | Add-on | Supervisor | 3.0 | https://github.com/home-assistant/addons/tree/master/rpc_shutdown |", "| Samba share | Add-on | Supervisor | 12.10.0 | https://github.com/home-assistant/addons/tree/master/samba |", "| SQLite Web | Add-on | Supervisor | 6.1.1 | https://github.com/hassio-addons/app-sqlite-web/tree/main/README.md |", "| Studio Code Server | Add-on | Supervisor | 7.2.0 | https://github.com/hassio-addons/app-vscode |", "| TasmoAdmin | Add-on | Supervisor | 0.34.0 | https://github.com/hassio-addons/app-tasmoadmin |", "| TasmoBackup | Add-on | Supervisor | 1.08.00 | https://github.com/danmed/TasmoBackupV1/ |", "| Terminal & SSH | Add-on | Supervisor | 10.5.0 | https://github.com/home-assistant/addons/tree/master/ssh |"] -->
 
 License
 ----
