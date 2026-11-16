@@ -44,6 +44,10 @@ Images are product photos where available, otherwise integration logos.
 <!-- readme-updater:observed:start -->
 Installed inventory changes (dates indicate detection, not installation):
 
+- **2026-11-16**: Installed/updated: Tapo: Cameras Control / Integration / Local / 7.2.14 / https://github.com/JurajNyiri/HomeAssistant-Tapo-Control
+- **2026-11-16**: Installed/updated: VW Group Connect / Integration / Local / 5.3.0 / https://github.com/its-me-prash/vwgroup-connect-ha
+- **2026-11-16**: Installed/updated: RPC Shutdown / Add-on / Supervisor / 3.1.0 / https://github.com/home-assistant/app-rpc-shutdown
+- **2026-11-16**: Installed/updated: Samba share / Add-on / Supervisor / 12.11.0 / https://github.com/home-assistant/app-samba
 - **2026-11-09**: Installed/updated: Alexa Media Player / Integration / Local / 5.20.0 / https://github.com/alandtse/alexa_media_player/wiki
 - **2026-11-09**: Installed/updated: Battery Notes / Integration / Local / 3.8.1 / https://andrew-codechimp.github.io/HA-Battery-Notes/
 - **2026-11-09**: Installed/updated: Drivvo / Integration / Local / 3.1.0 / https://github.com/hudsonbrendon/HA-drivvo#readme
@@ -60,10 +64,6 @@ Installed inventory changes (dates indicate detection, not installation):
 - **2026-11-09**: Installed/updated: VW Group Connect / Integration / Local / 5.2.5 / https://github.com/its-me-prash/vwgroup-connect-ha
 - **2026-11-09**: Installed/updated: Advanced SSH & Web Terminal / Add-on / Supervisor / 24.2.1 / https://github.com/hassio-addons/app-ssh
 - **2026-11-09**: Installed/updated: ESPHome Device Builder / Add-on / Supervisor / 2026.10.2 / https://esphome.io/
-- **2026-11-09**: Installed/updated: Node-RED / Add-on / Supervisor / 22.2.2 / https://github.com/hassio-addons/app-node-red
-- **2026-11-09**: Installed/updated: Terminal & SSH / Add-on / Supervisor / 10.6.0 / https://github.com/home-assistant/app-ssh
-- **2026-11-09**: Removed: Alexa Media Player | Integration | HACS
-- **2026-11-09**: Removed: artem-sedykh/mini-climate-card | Frontend | HACS
 <!-- readme-updater:observed:end -->
 
 <!-- readme-updater:features:start -->
@@ -99,10 +99,10 @@ Versions come from local manifests, HACS installed metadata and Supervisor, not 
 | Remote Home-Assistant | Integration | Local | 4.6 | https://github.com/custom-components/remote_homeassistant |
 | SmartIR | Integration | Local | 1.18.2 | https://github.com/smartHomeHub/SmartIR |
 | Sonoff | Integration | Local | 3.13.3 | https://github.com/AlexxIT/SonoffLAN |
-| Tapo: Cameras Control | Integration | Local | 7.2.13 | https://github.com/JurajNyiri/HomeAssistant-Tapo-Control |
+| Tapo: Cameras Control | Integration | Local | 7.2.14 | https://github.com/JurajNyiri/HomeAssistant-Tapo-Control |
 | TCL Home - Unofficial | Integration | Local | 3.16.0 | https://github.com/nemesa/ha-tcl-home-unofficial-integration/blob/main/README.md |
 | Volkswagen Connect | Integration | Local | v5.5.1 | https://github.com/robinostlund/homeassistant-volkswagencarnet |
-| VW Group Connect | Integration | Local | 5.2.5 | https://github.com/its-me-prash/vwgroup-connect-ha |
+| VW Group Connect | Integration | Local | 5.3.0 | https://github.com/its-me-prash/vwgroup-connect-ha |
 
 ### Add-ons
 
@@ -118,8 +118,8 @@ Versions come from local manifests, HACS installed metadata and Supervisor, not 
 | Home Assistant Google Drive Backup | Add-on | Supervisor | 0.112.1 | https://github.com/sabeechen/hassio-google-drive-backup |
 | Mosquitto broker | Add-on | Supervisor | 7.1.3 | https://github.com/home-assistant/app-mosquitto |
 | Node-RED | Add-on | Supervisor | 22.2.2 | https://github.com/hassio-addons/app-node-red |
-| RPC Shutdown | Add-on | Supervisor | 3.0 | https://github.com/home-assistant/addons/tree/master/rpc_shutdown |
-| Samba share | Add-on | Supervisor | 12.10.0 | https://github.com/home-assistant/addons/tree/master/samba |
+| RPC Shutdown | Add-on | Supervisor | 3.1.0 | https://github.com/home-assistant/app-rpc-shutdown |
+| Samba share | Add-on | Supervisor | 12.11.0 | https://github.com/home-assistant/app-samba |
 | SQLite Web | Add-on | Supervisor | 6.1.1 | https://github.com/hassio-addons/app-sqlite-web/tree/main/README.md |
 | Studio Code Server | Add-on | Supervisor | 7.2.0 | https://github.com/hassio-addons/app-vscode |
 | TasmoAdmin | Add-on | Supervisor | 0.34.1 | https://github.com/hassio-addons/app-tasmoadmin |
@@ -128,7 +128,7 @@ Versions come from local manifests, HACS installed metadata and Supervisor, not 
 
 <!-- readme-updater:addons:end -->
 
-<!-- readme-updater:inventory ["| Alexa Media Player | Integration | Local | 5.20.0 | https://github.com/alandtse/alexa_media_player/wiki |", "| Battery Notes | Integration | Local | 3.8.1 | https://andrew-codechimp.github.io/HA-Battery-Notes/ |", "| Drivvo | Integration | Local | 3.1.0 | https://github.com/hudsonbrendon/HA-drivvo#readme |", "| HomeAssistant Cupertino Icons | Integration | Local | 5.0.1 | https://github.com/menahishayan/HomeAssistant-Cupertino-Icons |", "| Monitor Docker | Integration | Local | 1.20b3 | https://github.com/ualex73/monitor_docker |", "| Node-RED Companion | Integration | Local | 4.3.3 | https://zachowj.github.io/node-red-contrib-home-assistant-websocket/guide/custom_integration/ |", "| Playnite Web MQTT | Integration | Local | 0.0.12 | https://github.com/cvele/hass_playnite_web_mqtt |", "| Remote Home-Assistant | Integration | Local | 4.6 | https://github.com/custom-components/remote_homeassistant |", "| SmartIR | Integration | Local | 1.18.2 | https://github.com/smartHomeHub/SmartIR |", "| Sonoff | Integration | Local | 3.13.3 | https://github.com/AlexxIT/SonoffLAN |", "| Tapo: Cameras Control | Integration | Local | 7.2.13 | https://github.com/JurajNyiri/HomeAssistant-Tapo-Control |", "| TCL Home - Unofficial | Integration | Local | 3.16.0 | https://github.com/nemesa/ha-tcl-home-unofficial-integration/blob/main/README.md |", "| Volkswagen Connect | Integration | Local | v5.5.1 | https://github.com/robinostlund/homeassistant-volkswagencarnet |", "| VW Group Connect | Integration | Local | 5.2.5 | https://github.com/its-me-prash/vwgroup-connect-ha |", "| Advanced SSH & Web Terminal | Add-on | Supervisor | 24.2.1 | https://github.com/hassio-addons/app-ssh |", "| deCONZ | Add-on | Supervisor | 8.8.0 | https://github.com/home-assistant/addons/tree/master/deconz |", "| Duck DNS | Add-on | Supervisor | 2.0.1 | https://github.com/home-assistant/addons/tree/master/duckdns |", "| ESPHome Device Builder | Add-on | Supervisor | 2026.10.2 | https://esphome.io/ |", "| Get HACS | Add-on | Supervisor | 1.3.1 | https://github.com/hacs/addons/tree/main/get |", "| Home Assistant Google Drive Backup | Add-on | Supervisor | 0.112.1 | https://github.com/sabeechen/hassio-google-drive-backup |", "| Mosquitto broker | Add-on | Supervisor | 7.1.3 | https://github.com/home-assistant/app-mosquitto |", "| Node-RED | Add-on | Supervisor | 22.2.2 | https://github.com/hassio-addons/app-node-red |", "| RPC Shutdown | Add-on | Supervisor | 3.0 | https://github.com/home-assistant/addons/tree/master/rpc_shutdown |", "| Samba share | Add-on | Supervisor | 12.10.0 | https://github.com/home-assistant/addons/tree/master/samba |", "| SQLite Web | Add-on | Supervisor | 6.1.1 | https://github.com/hassio-addons/app-sqlite-web/tree/main/README.md |", "| Studio Code Server | Add-on | Supervisor | 7.2.0 | https://github.com/hassio-addons/app-vscode |", "| TasmoAdmin | Add-on | Supervisor | 0.34.1 | https://github.com/hassio-addons/app-tasmoadmin |", "| TasmoBackup | Add-on | Supervisor | 1.08.01 | https://github.com/danmed/TasmoBackupV1/ |", "| Terminal & SSH | Add-on | Supervisor | 10.6.0 | https://github.com/home-assistant/app-ssh |"] -->
+<!-- readme-updater:inventory ["| Alexa Media Player | Integration | Local | 5.20.0 | https://github.com/alandtse/alexa_media_player/wiki |", "| Battery Notes | Integration | Local | 3.8.1 | https://andrew-codechimp.github.io/HA-Battery-Notes/ |", "| Drivvo | Integration | Local | 3.1.0 | https://github.com/hudsonbrendon/HA-drivvo#readme |", "| HomeAssistant Cupertino Icons | Integration | Local | 5.0.1 | https://github.com/menahishayan/HomeAssistant-Cupertino-Icons |", "| Monitor Docker | Integration | Local | 1.20b3 | https://github.com/ualex73/monitor_docker |", "| Node-RED Companion | Integration | Local | 4.3.3 | https://zachowj.github.io/node-red-contrib-home-assistant-websocket/guide/custom_integration/ |", "| Playnite Web MQTT | Integration | Local | 0.0.12 | https://github.com/cvele/hass_playnite_web_mqtt |", "| Remote Home-Assistant | Integration | Local | 4.6 | https://github.com/custom-components/remote_homeassistant |", "| SmartIR | Integration | Local | 1.18.2 | https://github.com/smartHomeHub/SmartIR |", "| Sonoff | Integration | Local | 3.13.3 | https://github.com/AlexxIT/SonoffLAN |", "| Tapo: Cameras Control | Integration | Local | 7.2.14 | https://github.com/JurajNyiri/HomeAssistant-Tapo-Control |", "| TCL Home - Unofficial | Integration | Local | 3.16.0 | https://github.com/nemesa/ha-tcl-home-unofficial-integration/blob/main/README.md |", "| Volkswagen Connect | Integration | Local | v5.5.1 | https://github.com/robinostlund/homeassistant-volkswagencarnet |", "| VW Group Connect | Integration | Local | 5.3.0 | https://github.com/its-me-prash/vwgroup-connect-ha |", "| Advanced SSH & Web Terminal | Add-on | Supervisor | 24.2.1 | https://github.com/hassio-addons/app-ssh |", "| deCONZ | Add-on | Supervisor | 8.8.0 | https://github.com/home-assistant/addons/tree/master/deconz |", "| Duck DNS | Add-on | Supervisor | 2.0.1 | https://github.com/home-assistant/addons/tree/master/duckdns |", "| ESPHome Device Builder | Add-on | Supervisor | 2026.10.2 | https://esphome.io/ |", "| Get HACS | Add-on | Supervisor | 1.3.1 | https://github.com/hacs/addons/tree/main/get |", "| Home Assistant Google Drive Backup | Add-on | Supervisor | 0.112.1 | https://github.com/sabeechen/hassio-google-drive-backup |", "| Mosquitto broker | Add-on | Supervisor | 7.1.3 | https://github.com/home-assistant/app-mosquitto |", "| Node-RED | Add-on | Supervisor | 22.2.2 | https://github.com/hassio-addons/app-node-red |", "| RPC Shutdown | Add-on | Supervisor | 3.1.0 | https://github.com/home-assistant/app-rpc-shutdown |", "| Samba share | Add-on | Supervisor | 12.11.0 | https://github.com/home-assistant/app-samba |", "| SQLite Web | Add-on | Supervisor | 6.1.1 | https://github.com/hassio-addons/app-sqlite-web/tree/main/README.md |", "| Studio Code Server | Add-on | Supervisor | 7.2.0 | https://github.com/hassio-addons/app-vscode |", "| TasmoAdmin | Add-on | Supervisor | 0.34.1 | https://github.com/hassio-addons/app-tasmoadmin |", "| TasmoBackup | Add-on | Supervisor | 1.08.01 | https://github.com/danmed/TasmoBackupV1/ |", "| Terminal & SSH | Add-on | Supervisor | 10.6.0 | https://github.com/home-assistant/app-ssh |"] -->
 
 License
 ----
